@@ -8,10 +8,10 @@ Autori
 ------
 
 Nazev tymu
-- xlogin01 jmeno prijmeni 
-- xlogin02 jmeno prijmeni 
-- xlogin03 jmeno prijmeni 
-- xlogin04 jmeno prijmeni 
+- xmacekd00 David Macek 
+- xcapkad00 Daniel Čapka 
+- xkrystm00 Miroslav Krystin 
+- xperuta00 Adam Perutka 
 
 Licence
 -------
