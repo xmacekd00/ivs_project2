@@ -1,0 +1,70 @@
+Plán projektu do IVS pro tým Husovi stoupenci
+
+Členové:
+    - xmacekd00 David Macek - Vedoucí
+    - xperuta00 Adam Perutka
+    - xcapkad00 Daniel Čapka
+    - xkrystm00 Miroslav Krystýn
+
+
+Komunikařní kanály:
+    - Primární komunikační kanál je discord server s místnostmi pro každý temrín, s obecnou místností
+      a s místností pro důležitá oznámení, kam může přidávat zprávy pouze správce serveru
+
+    - Tento server musí každý člen týmu navštívit minimálně jednou denně, při neaktivitě delší než 
+      24 hodin bez předchozí omluvenky je člen považován za nespolupracujícího
+
+    - V místnosti "oznámení" jsou telefonní čísla na všechny členy týmu. Tyto čísla jsou ale výhrádně
+      pro stav nouze. 
+
+Další podrobnosti ohledně projektu:
+    - Teamleader a člen, přes kterého bude probíhat komunikace s vyučujícími je xmacekd00 
+    - Primárně děláme projekt na Linux 64-bit
+    - Programovací jazyk python
+    - Kód a komentáře budou psány v angličtine
+    - Každý soubor je psán snake_case stylem a musí mít hlavičku jednotného stylu s ostatními soubory
+    - Pro správu projektu používáme github a hosting github.com. Vlastník repozitáře je xmacekd00
+      členové týmu jsou tam rovněž přidáni. Také je tam pozván uživatel ivskontrola@gmail.com.
+    - Pravidelně po každém termínu budou probíhat týmové hovory, kde zhodnotíme uběhlý termín a 
+      více dopodrobna naplánujeme ten následující
+    - Většina úkolů má pouze jednoho řešitele, ale počítá se s tím, že na těžších úkolech bude 
+      spolupracovat více lidí, poté co si dokončí vlastní úkoly v daném termínu
+
+Termíny:
+    1. termín - do 19.3.
+        - vytvoření discord serveru pro komunikaci - xmacekd00
+        - návrh vzhledu kalkulačky - xkrystm00, xcapkad00
+        - tdd testy pro matematickou knihovnu - xperuta00, pomáhá xmacekd00
+        - vytvoření a správa github repozitáře - xmacekd00
+        - sepsání a odevzdání plánu - xmacekd00
+        - týmové hodnocení prvního termínu a naplánování druhého termínu
+    2. termín - do 6.4.
+        - vytvoření gui - xcapkad00, xkrystm00
+        - implementace matematické knihovny - xperuta00, pomáhá xmacekd00
+        - vytvoření makefilu - xmacekd00
+        - týmové hodnocení druhého termínu a naplánování třetího termínu
+    3. temrín - do 17.4.
+        - integrace gui a matematické knihovny - xmacekd00
+        - uživatelská příručka - xcapkad00
+        - nápověda - xperuta00
+        - xkrystm00 se přidá tam, kde bude zrovna potřeba
+        - týmové hodnocení třetího termínu a naplánování čtvrtého termínu
+    4. termín - do 27.4.
+        - profiling - xmacekd00
+        - optimalizace - xperuta00
+        - vytvoření instalačního a odinstalačního souboru - xkrystm00
+        - xcapkad00 se přidá tam, kde to bude potřeba
+        - týmové hodnocení čtvrtého termínu a naplánování pátého termínu
+    5. termín - do 4.5.
+        - dokumentace - xmacekd00
+        - readme - xcapkad00
+        - zhodnocení, skutečnosti - všichni
+        - manuál na instalaci/odinstalaci - xkrystm00
+        - otestování kalkulačky všemi členy týmu na svých zařízeních
+        - týmové hodnocení pátého termínu a naplánování šestého termínu
+    6. termín - do 14.5
+        - mockup - vsichni
+        - příprava na obhajobu
+        - odevzdání
+    
+    - časová rezerva cca 10 dní
