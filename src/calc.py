@@ -1,9 +1,9 @@
 def add(a, b):
     return a + b
 
-# the following functions have not been implemented yes
+# the following functions have not been implemented 
 def subtract(a, b):
-    raise NotImplementedError("subtract is not implemented yet.")
+    return a - b
 
 def multiply(a, b):
     raise NotImplementedError("multiply is not implemented yet.")
