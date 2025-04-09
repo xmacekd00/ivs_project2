@@ -1,18 +1,24 @@
+import math
+
 def add(a, b):
     return a + b
 
 # the following functions have not been implemented 
 def subtract(a, b):
-    return a - b
+	return a - b
 
 def multiply(a, b):
-    raise NotImplementedError("multiply is not implemented yet.")
+	return a * b
 
 def divide(a, b):
-    raise NotImplementedError("divide is not implemented yet.")
+	if b == 0:
+		raise ZeroDivisionError("Division by zero is undefined.")
+	return a / b
 
 def factorial(n):
-    raise NotImplementedError("factorial is not implemented yet.")
+	if n < 0:
+		raise ValueError("Factorial is not defined for negative numbers!")
+	return math.factorial(n)
 
 def power(a, b):
     raise NotImplementedError("power is not implemented yet.")
