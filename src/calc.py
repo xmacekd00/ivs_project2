@@ -1,5 +1,3 @@
-import math
-
 def add(a, b):
     return a + b
 
@@ -18,7 +16,10 @@ def divide(a, b):
 def factorial(n):
 	if n < 0:
 		raise ValueError("Factorial is not defined for negative numbers!")
-	return math.factorial(n)
+	result = 1
+	for i in range(1, n + 1):
+		result *= i
+	return result
 
 def power(a, b):
 	return a**b
