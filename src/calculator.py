@@ -254,7 +254,6 @@ class Calculator:
         eq=eq.replace("x²", "S") #   S - x²
         eq=eq.replace("√2", "s") #   s - √2
 
-        result=0
         items = []  #array of numbers and operators
         i=0
         while i<len(eq):
@@ -270,64 +269,108 @@ class Calculator:
                 items.append(eq[i])
                 i+=1
 
+
+        i=0
         #calculate special operations (fact, roots and powers)
-        for j in range(len(items)):
-            match items[j]:
+        while i<len(items):
+            match items[i]:
                 case "n":
-                    tmp=calc.nth_root(int(items[j+1]),int(items[j-1]))
-                    eq=eq.replace(items[j-1]+items[j]+items[j+1],str(tmp))
+                    tmp=calc.nth_root(int(items[i+1]),int(items[i-1]))
+                    eq=eq.replace(items[i-1]+items[i]+items[i+1],str(tmp))
 
-                    items[j]=tmp
-                    del items[j-1]
-                    del items[j+1]
+                    items[i]=tmp
+                    del items[i-1]
+                    del items[i]
+                    i-=2
                 case "N": 
-                    tmp=calc.power(int(items[j-1]),int(items[j+1]))
-                    eq=eq.replace(items[j-1]+items[j]+items[j+1],str(tmp))
+                    tmp=calc.power(int(items[i-1]),int(items[i+1]))
+                    eq=eq.replace(items[i-1]+items[i]+items[i+1],str(tmp))
 
-                    items[j]=tmp
-                    del items[j-1]
-                    del items[j+1]
+                    items[i]=tmp
+                    del items[i-1]
+                    del items[i]
+                    i-=2
                 case "S":
-                    tmp=calc.power(int(items[j-1]),2)
-                    eq=eq.replace(items[j-1]+items[j],str(tmp))
-                    items[j]=tmp
-                    del items[j-1]
+                    tmp=calc.power(int(items[i-1]),2)
+                    eq=eq.replace(items[i-1]+items[i],str(tmp))
+                    items[i]=tmp
+                    del items[i-1]
+                    i-=2
                 case "s":
-                    tmp=calc.nth_root(int(items[j+1]),2)
-                    eq=eq.replace(items[j]+items[j+1],str(tmp))
+                    tmp=calc.nth_root(int(items[i+1]),2)
+                    eq=eq.replace(items[i]+items[i+1],str(tmp))
 
-                    items[j]=tmp
-                    del items[j+1]
+                    items[i]=tmp
+                    del items[i+1]
+                    i-=1
                 case "!":
-                    tmp=calc.factorial(items[j-1])
-                    eq=eq.replace(items[j-1]+items[j],str(tmp))
+                    tmp=calc.factorial(items[i-1])
+                    eq=eq.replace(items[i-1]+items[i],str(tmp))
 
-                    items[j]=tmp
-                    del items[j-1]
-    
+                    items[i]=tmp
+                    del items[i-1]
+                    i-=2
+            i+=1
+        i=0
         #calculate mult. division and modulo
-        for j in range(len(items)):
-            match items[j]:
+        while i<len(items):
+            match items[i]:
                 case "*":
-                    return 1
+                    tmp=calc.multiply(int(items[i-1]),int(items[i+1]))
+                    eq=eq.replace(items[i-1]+items[i]+items[i+1],str(tmp))
+
+                    items[i]=tmp
+                    del items[i-1]
+                    del items[i]
+                    i-=2
                 case "/":
-                    return 1
+                    tmp=calc.divide(int(items[i-1]),int(items[i+1]))
+                    eq=eq.replace(items[i-1]+items[i]+items[i+1],str(tmp))
+
+                    items[i]=tmp
+                    del items[i-1]
+                    del items[i]
+                    i-=2
+                case "M":
+                    tmp=calc.modulo(int(items[i-1]),int(items[i+1]))
+                    eq=eq.replace(items[i-1]+items[i]+items[i+1],str(tmp))
+
+                    items[i]=tmp
+                    del items[i-1]
+                    del items[i]
+                    i-=2
+            i+=1
+
+
+        i=0
         #calculate add and sub
-        for j in range(len(items)):
-            match items[j]:
+        while i<len(items):
+            match items[i]:
                 case "+":
-                    return 1
+                    tmp=calc.add(int(items[i-1]),int(items[i+1]))
+                    eq=eq.replace(items[i-1]+items[i]+items[i+1],str(tmp))
+
+                    items[i]=tmp
+                    del items[i-1]
+                    del items[i]
+                    i-=2
                 case "-":
-                    return 1
-        return result
+                    tmp=calc.subtract(int(items[i-1]),int(items[i+1]))
+                    eq=eq.replace(items[i-1]+items[i]+items[i+1],str(tmp))
+
+                    items[i]=tmp
+                    del items[i-1]
+                    del items[i]
+                    i-=2
+            i+=1
+        return items[0]
 
     def equals(self):
 
         """HERE INSERT OUR CUSTOM MATH LIBRARY TO CALCULATE THE RESULT."""
-
         if self.equation:
             result=self.evaluate()
-            self.result_display.config(text=f"={self.equation}")  # Display equation as result
+            self.result_display.config(text=f"{self.evaluate()}")  # Display equation as result
         else:
             self.result_display.config(text="0")  # Display 0 if equation is empty
 
@@ -347,7 +390,7 @@ class Calculator:
             font=self.equation_font,  # Use the equation font
             bg="#0c1520",  # Background color
             fg="white",  # Text color
-            justify="center"  # Center-align the text
+            iustify="center"  # Center-align the text
         )
         help_label.pack(expand=True, padx=10, pady=10)  # Add padding and center the label
 
