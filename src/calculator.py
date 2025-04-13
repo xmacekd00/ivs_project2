@@ -6,7 +6,7 @@
 # Creation date: 2025-04-13
 # Version: 1.2
 # ================================================
-
+import calc
 import tkinter as tk
 from tkinter import font
 
@@ -244,11 +244,58 @@ class Calculator:
             self.equation = self.equation[:-1]  # Remove the last character if no special token matches
         self.equation_display.config(text=self.equation)  # Update equation display
 
+    #
+    def evaluate(self):
+        str = self.equation
+        str=str.replace(',','.')    #correct format of decimal point
+        str=str.replace("MOD","M") #   M - MOD
+        str=str.replace("ⁿ√x","n") #   n - ⁿ√x
+        str=str.replace("xⁿ","N")  #   N - xⁿ
+        str=str.replace("x²", "S") #   S - x²
+        str=str.replace("√2", "s") #   s - √2
+
+
+        items = []  #array of numbers and operators
+        i=0
+        while i<len(str):
+            item=""  
+            if str[i].isdigit():    #item is a number
+                while str[i]. isdigit() or str[i] == ".":   #load all the digits 
+                    item+=str[i] 
+                    i+=1
+                    if i>=len(str): break   #end of str check
+                items.append(item)#add number to items
+                if i>= len(str): break  #end of str check
+                items.append(str[i])  #add operator (the while loop ended on char which is not a number)
+                
+            else:   #item is an operator
+                items.append(item)
+                i+=1
+
+        #loop for special operations (fact, roots and powers)
+        for j in range(len(items)):
+            match items[j]:
+                case "n":
+                    tmp=calc.nth_root(int(items[j+1]),int(items[j-1]))
+                    str=str.replace(items[j-1]+items[j]+items[j+1],tmp)
+                case "N": 
+                    tmp=calc.power(int(items[j-1]),int(items[j+1]))
+                    str=str.replace(items[j-1]+items[j]+items[j+1],tmp)
+                case "S":
+                    #tmp=
+                    return 1
+                case "s":
+                    return 1
+                case "!":
+                    return 1
+                
+
     def equals(self):
 
         """HERE INSERT OUR CUSTOM MATH LIBRARY TO CALCULATE THE RESULT."""
 
         if self.equation:
+            result=self.evaluate()
             self.result_display.config(text=f"={self.equation}")  # Display equation as result
         else:
             self.result_display.config(text="0")  # Display 0 if equation is empty
