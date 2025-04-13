@@ -1,0 +1,306 @@
+# ================================================
+# File: calculator.py
+# Authors: xcapkad00, xkrystm00
+# Description: Calculator created using the tkinter library with 
+#              the possibility of extending it with custom mathematical operations.
+# Creation date: 2025-04-13
+# Version: 1.0
+# ================================================
+
+import tkinter as tk
+from tkinter import font
+
+# HERE INSERT OUR CUSTOM MATH LIBRARY.
+
+class Calculator:
+    def __init__(self, master):
+        # Set up the main window
+        self.master = master
+        self.master.title("Calculator")  # Set the title of the window
+        self.master.geometry("300x500")  # Set the size of the window
+        self.master.resizable(True, True)  # Allow resizing of the window
+        self.master.configure(bg="#0c1520")  # Set the background color of the window
+        self.master.minsize(300, 500)  # Minimum width: 300, Minimum height: 500
+        
+        # Fonts for different UI elements
+        self.display_font = font.Font(family="Arial", size=28, weight="bold")  # Font for the result display
+        self.equation_font = font.Font(family="Arial", size=14)  # Font for the equation display
+        self.button_font = font.Font(family="Arial", size=18, weight="bold")  # Font for the main buttons
+        self.small_button_font = font.Font(family="Arial", size=14)  # Font for smaller buttons
+        
+        # Equation state tracking
+        self.equation = ""  # Initialize the equation as an empty string
+        
+        # Label to display the equation
+        self.equation_display = tk.Label(
+            master, 
+            text="",  # Initially empty
+            font=self.equation_font,  # Use the equation font
+            bg="#0c1520",  # Background color
+            fg="#6d737a",  # Text color
+            anchor="e"  # Align text to the right
+        )
+        self.equation_display.pack(fill=tk.X, padx=20, pady=(40, 0))  # Add padding and fill horizontally
+        
+        # Label to display the result
+        self.result_display = tk.Label(
+            master, 
+            text="0",  # Default result is 0
+            font=self.display_font,  # Use the display font
+            bg="#0c1520",  # Background color
+            fg="white",  # Text color
+            anchor="e"  # Align text to the right
+        )
+        self.result_display.pack(fill=tk.X, padx=20, pady=(0, 20))  # Add padding and fill horizontally
+        
+        # Add a help button in the top-left corner
+        help_button = tk.Button(
+            master,
+            text="?",  # Text for the button
+            font=self.small_button_font,  # Use the smaller font
+            bg="#0059cc",  # Blue background
+            fg="white",  # White text color
+            command=self.show_help,  # Call the show_help method when clicked
+            relief=tk.FLAT,  # Flat button style
+            activebackground="#003d99",  # Darker blue when hovered
+            activeforeground="white"  # White text when hovered
+        )
+        help_button.place(x=10, y=10, width=30, height=30)  # Position the button in the top-left corner
+        
+        # Frame for buttons
+        button_frame = tk.Frame(master, bg="#0c1520")  # Create a frame for the buttons
+        button_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)  # Add padding and allow expansion
+        
+        # Configure the grid inside button_frame
+        for i in range(6):  # Create 6 rows for buttons
+            button_frame.grid_rowconfigure(i, weight=1)  # Make rows equally spaced
+        for i in range(4):  # Create 4 columns for buttons
+            button_frame.grid_columnconfigure(i, weight=1)  # Make columns equally spaced
+        
+        # Scientific function buttons
+        sci_buttons = [
+            ("x²", 0, 0),  # Square function
+            ("√2", 0, 1),  # Square root function
+            ("!", 0, 2),  # Factorial function
+            ("MOD", 0, 3)  # Modulus function
+        ]
+        for (text, row, col) in sci_buttons:
+            self.create_button(
+                button_frame, 
+                text=text,  # Button text
+                font=self.small_button_font,  # Use smaller font for scientific buttons
+                bg="#252e3b",  # Button background color
+                fg="#3d88e0",  # Button text color
+                command=lambda t=text: self.add_to_equation(t),  # Add button text to equation when clicked
+                row=row,  # Row position in the grid
+                column=col  # Column position in the grid
+            )
+        
+        # Function buttons like clear and backspace
+        func_buttons = [
+            ("xⁿ", 1, 0),  # Exponentiation
+            ("ⁿ√x", 1, 1),  # Nth root
+            ("AC", 1, 2),  # Clear all
+            ("DEL", 1, 3)  # Delete last character
+        ]
+        for (text, row, col) in func_buttons:
+            if text in ["AC", "DEL"]:  # Special styling for AC and DEL buttons
+                bg_color = "#0059cc"  # Blue background for these buttons
+                fg_color = "white"  # White text color
+            else:
+                bg_color = "#252e3b"  # Default background color
+                fg_color = "#3d88e0"  # Default text color
+            
+            if text == "AC":
+                command = self.clear  # Clear the equation
+            elif text == "DEL":
+                command = self.backspace  # Remove the last character
+            else:
+                command = lambda t=text: self.add_to_equation(t)  # Add button text to equation
+                
+            self.create_button(
+                button_frame, 
+                text=text,  # Button text
+                font=self.button_font if text in ["/", "*"] else self.small_button_font,  # Font size based on button type
+                bg=bg_color,  # Background color
+                fg=fg_color,  # Text color
+                command=command,  # Command to execute when button is clicked
+                row=row,  # Row position in the grid
+                column=col  # Column position in the grid
+            )
+        
+        # Number and dot buttons
+        numbers = [
+            ("7", 2, 0), ("8", 2, 1), ("9", 2, 2),  # Row 2
+            ("4", 3, 0), ("5", 3, 1), ("6", 3, 2),  # Row 3
+            ("1", 4, 0), ("2", 4, 1), ("3", 4, 2),  # Row 4
+            ("0", 5, 0), (",", 5, 1), ("=", 5, 2),  # Row 5
+        ]
+        for button in numbers:
+            if len(button) == 4:
+                # Button spans multiple columns (e.g., "0")
+                text, row, col, colspan = button
+                self.create_button(
+                    button_frame, 
+                    text=text,  # Button text
+                    font=self.button_font,  # Font for numbers
+                    bg="#252e3b",  # Background color
+                    fg="white",  # Text color
+                    command=lambda t=text: self.add_to_equation(t),  # Add button text to equation
+                    row=row,  # Row position
+                    column=col,  # Column position
+                    columnspan=colspan  # Span multiple columns
+                )
+            else:
+                text, row, col = button
+                self.create_button(
+                    button_frame, 
+                    text=text,  # Button text
+                    font=self.button_font,  # Font for numbers
+                    bg="#252e3b",  # Background color
+                    fg="white",  # Text color
+                    command=lambda t=text: self.add_to_equation(t),  # Add button text to equation
+                    row=row,  # Row position
+                    column=col  # Column position
+                )
+        
+        # Operator buttons: -, +, and =
+        operators = [
+            ("+", 2, 3),  # Addition
+            ("-", 3, 3),  # Subtraction
+            ("*", 4, 3),  # Multiplication
+            ("/", 5, 3)   # Division
+        ]
+        for button in operators:
+            if len(button) == 4:
+                text, row, col, rowspan = button
+                self.create_button(
+                    button_frame, 
+                    text=text,  # Button text
+                    font=self.button_font,  # Font for operators
+                    bg="#0059cc",  # Blue background for operators
+                    fg="white",  # White text color
+                    command=lambda t=text: self.add_to_equation(t),  # Add operator to equation
+                    row=row,  # Row position
+                    column=col,  # Column position
+                    rowspan=rowspan  # Span multiple rows
+                )
+            else:
+                text, row, col = button
+                command = self.equals if text == "=" else lambda t=text: self.add_to_equation(t)  # "=" triggers equals
+                self.create_button(
+                    button_frame, 
+                    text=text,  # Button text
+                    font=self.button_font,  # Font for operators
+                    bg="#0059cc",  # Blue background for operators
+                    fg="white",  # White text color
+                    command=command,  # Command to execute
+                    row=row,  # Row position
+                    column=col  # Column position
+                )
+        
+        # Keyboard input binding
+        self.master.bind("<Key>", self.key_press)  # Bind keyboard events to the calculator
+        self.master.focus_set()  # Capture keyboard events
+
+    def create_button(self, parent, text, font, bg, fg, command, row, column, rowspan=1, columnspan=1):
+        """Creates a styled button and places it into the grid layout."""
+        frame = tk.Frame(parent, bg=parent["bg"])
+        frame.grid(row=row, column=column, rowspan=rowspan, columnspan=columnspan, padx=4, pady=4, sticky="nsew")
+        frame.grid_propagate(False)  # Prevent resizing of the frame
+        frame.grid_rowconfigure(0, weight=1)
+        frame.grid_columnconfigure(0, weight=1)
+        
+        btn = tk.Button(
+            frame, 
+            text=text, 
+            font=font,
+            bg=bg, 
+            fg=fg, 
+            relief=tk.FLAT,
+            activebackground=self.darken_color(bg),  # Darken color on hover
+            activeforeground=fg,
+            bd=0,
+            padx=0, pady=0,
+            highlightthickness=0,
+            command=command
+        )
+        btn.grid(row=0, column=0, sticky="nsew", padx=1, pady=1)
+        return btn
+
+    def darken_color(self, hex_color):
+        """Darkens a given HEX color by reducing its RGB values."""
+        r = int(hex_color[1:3], 16)
+        g = int(hex_color[3:5], 16)
+        b = int(hex_color[5:7], 16)
+        r = max(0, r - 30)  # Reduce red component
+        g = max(0, g - 30)  # Reduce green component
+        b = max(0, b - 30)  # Reduce blue component
+        return f"#{r:02x}{g:02x}{b:02x}"
+
+    def key_press(self, event):
+        """Handles keyboard input."""
+        key = event.char
+        if key in "0123456789.+-*/()":  # Allow numeric and operator keys
+            self.add_to_equation(key)
+        elif event.keysym == "BackSpace":  # Handle backspace
+            self.backspace()
+        elif event.keysym == "Return":  # Handle Enter key
+            self.equals()
+        elif event.keysym == "Escape":  # Handle Escape key
+            self.clear()
+
+    def add_to_equation(self, value):
+        """Appends a character to the equation and updates the display."""
+        self.equation += value
+        self.equation_display.config(text=self.equation)  # Update equation display
+
+    def clear(self):
+        """Clears the equation and result displays."""
+        self.equation = ""
+        self.equation_display.config(text=self.equation)  # Clear equation display
+        self.result_display.config(text="0")  # Reset result display
+
+    def backspace(self):
+        """Removes the last character from the equation."""
+        self.equation = self.equation[:-1]
+        self.equation_display.config(text=self.equation)  # Update equation display
+
+
+    def equals(self):
+
+        """HERE INSERT OUR CUSTOM MATH LIBRARY TO CALCULATE THE RESULT."""
+
+        if self.equation:
+            self.result_display.config(text=f"={self.equation}")  # Display equation as result
+        else:
+            self.result_display.config(text="0")  # Display 0 if equation is empty
+
+    def show_help(self):
+        """Displays a help window with usage instructions."""
+        help_window = tk.Toplevel(self.master)  # Create a new top-level window
+        help_window.title("Help")  # Set the title of the help window
+        help_window.geometry("300x200")  # Set the size of the help window
+        help_window.configure(bg="#0c1520")  # Set the background color
+
+        # Add a label with help text
+        help_label = tk.Label(
+            help_window,
+            text="This is a simple calculator.\n\n"
+                "Use the buttons or keyboard to input numbers and operations.\n\n"
+                "Click '=' to calculate the result.",
+            font=self.equation_font,  # Use the equation font
+            bg="#0c1520",  # Background color
+            fg="white",  # Text color
+            justify="center"  # Center-align the text
+        )
+        help_label.pack(expand=True, padx=10, pady=10)  # Add padding and center the label
+
+# Entry point
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = Calculator(root)
+    root.mainloop()
+
+# End of the calculator code
+# ================================================
