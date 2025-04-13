@@ -4,7 +4,7 @@
 # Description: Calculator created using the tkinter library with 
 #              the possibility of extending it with custom mathematical operations.
 # Creation date: 2025-04-13
-# Version: 1.0
+# Version: 1.1
 # ================================================
 
 import tkinter as tk
@@ -129,7 +129,7 @@ class Calculator:
                 column=col  # Column position in the grid
             )
         
-        # Number and dot buttons
+        # Number, dot and = buttons
         numbers = [
             ("7", 2, 0), ("8", 2, 1), ("9", 2, 2),  # Row 2
             ("4", 3, 0), ("5", 3, 1), ("6", 3, 2),  # Row 3
@@ -137,34 +137,20 @@ class Calculator:
             ("0", 5, 0), (",", 5, 1), ("=", 5, 2),  # Row 5
         ]
         for button in numbers:
-            if len(button) == 4:
-                # Button spans multiple columns (e.g., "0")
-                text, row, col, colspan = button
-                self.create_button(
-                    button_frame, 
-                    text=text,  # Button text
-                    font=self.button_font,  # Font for numbers
-                    bg="#252e3b",  # Background color
-                    fg="white",  # Text color
-                    command=lambda t=text: self.add_to_equation(t),  # Add button text to equation
-                    row=row,  # Row position
-                    column=col,  # Column position
-                    columnspan=colspan  # Span multiple columns
-                )
-            else:
-                text, row, col = button
-                self.create_button(
-                    button_frame, 
-                    text=text,  # Button text
-                    font=self.button_font,  # Font for numbers
-                    bg="#252e3b",  # Background color
-                    fg="white",  # Text color
-                    command=lambda t=text: self.add_to_equation(t),  # Add button text to equation
-                    row=row,  # Row position
-                    column=col  # Column position
-                )
+            text, row, col = button
+            self.create_button(
+                button_frame, 
+                text=text,  # Button text
+                font=self.button_font,  # Font for numbers
+                bg="#252e3b",  # Background color
+                fg="white",  # Text color
+                command=self.equals if text == "=" else lambda t=text: self.add_to_equation(t),  # "=" triggers equals or add to equation
+                row=row,  # Row position
+                column=col  # Column position
+            )
         
-        # Operator buttons: -, +, and =
+        
+        # Operator buttons: -, +, *, and /
         operators = [
             ("+", 2, 3),  # Addition
             ("-", 3, 3),  # Subtraction
@@ -172,32 +158,18 @@ class Calculator:
             ("/", 5, 3)   # Division
         ]
         for button in operators:
-            if len(button) == 4:
-                text, row, col, rowspan = button
-                self.create_button(
-                    button_frame, 
-                    text=text,  # Button text
-                    font=self.button_font,  # Font for operators
-                    bg="#0059cc",  # Blue background for operators
-                    fg="white",  # White text color
-                    command=lambda t=text: self.add_to_equation(t),  # Add operator to equation
-                    row=row,  # Row position
-                    column=col,  # Column position
-                    rowspan=rowspan  # Span multiple rows
-                )
-            else:
-                text, row, col = button
-                command = self.equals if text == "=" else lambda t=text: self.add_to_equation(t)  # "=" triggers equals
-                self.create_button(
-                    button_frame, 
-                    text=text,  # Button text
-                    font=self.button_font,  # Font for operators
-                    bg="#0059cc",  # Blue background for operators
-                    fg="white",  # White text color
-                    command=command,  # Command to execute
-                    row=row,  # Row position
-                    column=col  # Column position
-                )
+            text, row, col = button
+            command = lambda t=text: self.add_to_equation(t)  # "=" triggers equals
+            self.create_button(
+                button_frame, 
+                text=text,  # Button text
+                font=self.button_font,  # Font for operators
+                bg="#0059cc",  # Blue background for operators
+                fg="white",  # White text color
+                command=command,  # Command to execute
+                row=row,  # Row position
+                column=col  # Column position
+            )
         
         # Keyboard input binding
         self.master.bind("<Key>", self.key_press)  # Bind keyboard events to the calculator
