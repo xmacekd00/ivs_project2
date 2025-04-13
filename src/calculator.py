@@ -4,7 +4,7 @@
 # Description: Calculator created using the tkinter library with 
 #              the possibility of extending it with custom mathematical operations.
 # Creation date: 2025-04-13
-# Version: 1.1
+# Version: 1.2
 # ================================================
 
 import tkinter as tk
@@ -234,10 +234,15 @@ class Calculator:
         self.result_display.config(text="0")  # Reset result display
 
     def backspace(self):
-        """Removes the last character from the equation."""
-        self.equation = self.equation[:-1]
+        """Removes the last character or a special token from the equation."""
+        special_tokens = ["ⁿ√x", "xⁿ", "x²", "√2", "MOD"]  # Define special tokens
+        for token in special_tokens:
+            if self.equation.endswith(token):  # Check if the equation ends with a special token
+                self.equation = self.equation[:-len(token)]  # Remove the entire token
+                break
+        else:
+            self.equation = self.equation[:-1]  # Remove the last character if no special token matches
         self.equation_display.config(text=self.equation)  # Update equation display
-
 
     def equals(self):
 
