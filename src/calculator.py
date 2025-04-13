@@ -246,49 +246,80 @@ class Calculator:
 
     #
     def evaluate(self):
-        str = self.equation
-        str=str.replace(',','.')    #correct format of decimal point
-        str=str.replace("MOD","M") #   M - MOD
-        str=str.replace("ⁿ√x","n") #   n - ⁿ√x
-        str=str.replace("xⁿ","N")  #   N - xⁿ
-        str=str.replace("x²", "S") #   S - x²
-        str=str.replace("√2", "s") #   s - √2
+        eq = self.equation
+        eq=eq.replace(',','.')    #correct format of decimal point
+        eq=eq.replace("MOD","M") #   M - MOD
+        eq=eq.replace("ⁿ√x","n") #   n - ⁿ√x
+        eq=eq.replace("xⁿ","N")  #   N - xⁿ
+        eq=eq.replace("x²", "S") #   S - x²
+        eq=eq.replace("√2", "s") #   s - √2
 
-
+        result=0
         items = []  #array of numbers and operators
         i=0
-        while i<len(str):
+        while i<len(eq):
             item=""  
-            if str[i].isdigit():    #item is a number
-                while str[i]. isdigit() or str[i] == ".":   #load all the digits 
-                    item+=str[i] 
+            if eq[i].isdigit():    #item is a number
+                while eq[i]. isdigit() or eq[i] == ".":   #load all the digits 
+                    item+=eq[i] 
                     i+=1
-                    if i>=len(str): break   #end of str check
+                    if i>=len(eq): break   #end of eq check
                 items.append(item)#add number to items
-                if i>= len(str): break  #end of str check
-                items.append(str[i])  #add operator (the while loop ended on char which is not a number)
                 
             else:   #item is an operator
-                items.append(item)
+                items.append(eq[i])
                 i+=1
 
-        #loop for special operations (fact, roots and powers)
+        #calculate special operations (fact, roots and powers)
         for j in range(len(items)):
             match items[j]:
                 case "n":
                     tmp=calc.nth_root(int(items[j+1]),int(items[j-1]))
-                    str=str.replace(items[j-1]+items[j]+items[j+1],tmp)
+                    eq=eq.replace(items[j-1]+items[j]+items[j+1],str(tmp))
+
+                    items[j]=tmp
+                    del items[j-1]
+                    del items[j+1]
                 case "N": 
                     tmp=calc.power(int(items[j-1]),int(items[j+1]))
-                    str=str.replace(items[j-1]+items[j]+items[j+1],tmp)
+                    eq=eq.replace(items[j-1]+items[j]+items[j+1],str(tmp))
+
+                    items[j]=tmp
+                    del items[j-1]
+                    del items[j+1]
                 case "S":
-                    #tmp=
-                    return 1
+                    tmp=calc.power(int(items[j-1]),2)
+                    eq=eq.replace(items[j-1]+items[j],str(tmp))
+                    items[j]=tmp
+                    del items[j-1]
                 case "s":
-                    return 1
+                    tmp=calc.nth_root(int(items[j+1]),2)
+                    eq=eq.replace(items[j]+items[j+1],str(tmp))
+
+                    items[j]=tmp
+                    del items[j+1]
                 case "!":
+                    tmp=calc.factorial(items[j-1])
+                    eq=eq.replace(items[j-1]+items[j],str(tmp))
+
+                    items[j]=tmp
+                    del items[j-1]
+    
+        #calculate mult. division and modulo
+        for j in range(len(items)):
+            match items[j]:
+                case "*":
                     return 1
-                
+                case "/":
+                    return 1
+        #calculate add and sub
+        for j in range(len(items)):
+            match items[j]:
+                case "+":
+                    return 1
+                case "-":
+                    return 1
+        return result
 
     def equals(self):
 
