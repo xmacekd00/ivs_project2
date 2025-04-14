@@ -1,6 +1,6 @@
 # ================================================
 # File: calculator.py
-# Authors: xcapkad00, xkrystm00
+# Authors: xcapkad00, xkrystm00, xmacekd00
 # Description: Calculator created using the tkinter library with 
 #              the possibility of extending it with custom mathematical operations.
 # Creation date: 2025-04-13
@@ -336,6 +336,7 @@ class Calculator:
 
 
         i=0
+        
         #calculate add and sub
         while i<len(items):
             match items[i]:
