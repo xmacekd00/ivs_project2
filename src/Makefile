@@ -1,18 +1,18 @@
 .DEFAULT_GOAL := all
 
-all:
-	@python3 main.py #main.py nahradit cestou k souboru, ktery spusti kalkulacku
+all: calculator.py
+	@python3 calculator.py 
 pack:
 	#prikaz pro udelani zipu
 clean:
-	#prikaz pro vycisteni 
+	rm -r "__pycache__"
 test:
 	@python3 tdd.py
 doc:
 	#prikaz pro generovani dokumentace
 run:
-	@python3	main.py #main.py narhadit cestou ke skutenemu mainu
-stddev:
+	@python3	calculator.py
+profile:
 	@python3 stddev.py #stddev.py nahradit cestou k souboru pro vypocet smerodatne odchylky s testovacim vstupem
 
 
