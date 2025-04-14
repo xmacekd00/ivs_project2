@@ -275,39 +275,39 @@ class Calculator:
         while i<len(items):
             match items[i]:
                 case "n":
-                    tmp=calc.nth_root(int(items[i+1]),int(items[i-1]))
+                    tmp=calc.nth_root(float(items[i+1]),float(items[i-1]))
                     eq=eq.replace(items[i-1]+items[i]+items[i+1],str(tmp))
 
-                    items[i]=tmp
+                    items[i]=str(tmp)
                     del items[i-1]
                     del items[i]
                     i-=2
                 case "N": 
-                    tmp=calc.power(int(items[i-1]),int(items[i+1]))
+                    tmp=calc.power(float(items[i-1]),float(items[i+1]))
                     eq=eq.replace(items[i-1]+items[i]+items[i+1],str(tmp))
 
-                    items[i]=tmp
+                    items[i]=str(tmp)
                     del items[i-1]
                     del items[i]
                     i-=2
                 case "S":
-                    tmp=calc.power(int(items[i-1]),2)
+                    tmp=calc.power(float(items[i-1]),2)
                     eq=eq.replace(items[i-1]+items[i],str(tmp))
-                    items[i]=tmp
+                    items[i]=str(tmp)
                     del items[i-1]
                     i-=2
                 case "s":
-                    tmp=calc.nth_root(int(items[i+1]),2)
+                    tmp=calc.nth_root(float(items[i+1]),2)
                     eq=eq.replace(items[i]+items[i+1],str(tmp))
 
-                    items[i]=tmp
+                    items[i]=str(tmp)
                     del items[i+1]
                     i-=1
                 case "!":
                     tmp=calc.factorial(items[i-1])
                     eq=eq.replace(items[i-1]+items[i],str(tmp))
 
-                    items[i]=tmp
+                    items[i]=str(tmp)
                     del items[i-1]
                     i-=2
             i+=1
@@ -316,26 +316,26 @@ class Calculator:
         while i<len(items):
             match items[i]:
                 case "*":
-                    tmp=calc.multiply(int(items[i-1]),int(items[i+1]))
+                    tmp=calc.multiply(float(items[i-1]),float(items[i+1]))
                     eq=eq.replace(items[i-1]+items[i]+items[i+1],str(tmp))
 
-                    items[i]=tmp
+                    items[i]=str(tmp)
                     del items[i-1]
                     del items[i]
                     i-=2
                 case "/":
-                    tmp=calc.divide(int(items[i-1]),int(items[i+1]))
+                    tmp=calc.divide(float(items[i-1]),float(items[i+1]))
                     eq=eq.replace(items[i-1]+items[i]+items[i+1],str(tmp))
 
-                    items[i]=tmp
+                    items[i]=str(tmp)
                     del items[i-1]
                     del items[i]
                     i-=2
                 case "M":
-                    tmp=calc.modulo(int(items[i-1]),int(items[i+1]))
+                    tmp=calc.modulo(float(items[i-1]),float(items[i+1]))
                     eq=eq.replace(items[i-1]+items[i]+items[i+1],str(tmp))
 
-                    items[i]=tmp
+                    items[i]=str(tmp)
                     del items[i-1]
                     del items[i]
                     i-=2
@@ -347,18 +347,18 @@ class Calculator:
         while i<len(items):
             match items[i]:
                 case "+":
-                    tmp=calc.add(int(items[i-1]),int(items[i+1]))
+                    tmp=calc.add(float(items[i-1]),float(items[i+1]))
                     eq=eq.replace(items[i-1]+items[i]+items[i+1],str(tmp))
 
-                    items[i]=tmp
+                    items[i]=str(tmp)
                     del items[i-1]
                     del items[i]
                     i-=2
                 case "-":
-                    tmp=calc.subtract(int(items[i-1]),int(items[i+1]))
+                    tmp=calc.subtract(float(items[i-1]),float(items[i+1]))
                     eq=eq.replace(items[i-1]+items[i]+items[i+1],str(tmp))
 
-                    items[i]=tmp
+                    items[i]=str(tmp)
                     del items[i-1]
                     del items[i]
                     i-=2
