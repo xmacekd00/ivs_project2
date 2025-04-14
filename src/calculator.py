@@ -276,38 +276,34 @@ class Calculator:
             match items[i]:
                 case "n":
                     tmp=calc.nth_root(float(items[i+1]),float(items[i-1]))
-                    eq=eq.replace(items[i-1]+items[i]+items[i+1],str(tmp))
-
-                    items[i]=str(tmp)
+                   
+                    items[i]=str(tmp) # replace three arr items (operand (N), Nth root of x , operand(x)) with its result
                     del items[i-1]
                     del items[i]
                     i-=2
                 case "N": 
                     tmp=calc.power(float(items[i-1]),float(items[i+1]))
-                    eq=eq.replace(items[i-1]+items[i]+items[i+1],str(tmp))
-
-                    items[i]=str(tmp)
+                    
+                    items[i]=str(tmp) # replace three arr items (operand (N), Nth power of x , operand(x)) with its result
                     del items[i-1]
                     del items[i]
                     i-=2
                 case "S":
                     tmp=calc.power(float(items[i-1]),2)
-                    eq=eq.replace(items[i-1]+items[i],str(tmp))
-                    items[i]=str(tmp)
+                    
+                    items[i]=str(tmp) # replace two arr items (x squared , operand(x)) with its result
                     del items[i-1]
                     i-=2
                 case "s":
                     tmp=calc.nth_root(float(items[i+1]),2)
-                    eq=eq.replace(items[i]+items[i+1],str(tmp))
-
-                    items[i]=str(tmp)
+                   
+                    items[i]=str(tmp) # replace two arr items (squareroot of x , operand(x)) with its result
                     del items[i+1]
                     i-=1
                 case "!":
                     tmp=calc.factorial(items[i-1])
-                    eq=eq.replace(items[i-1]+items[i],str(tmp))
-
-                    items[i]=str(tmp)
+                    
+                    items[i]=str(tmp) # replace two arr items (operand(x), !) with its result
                     del items[i-1]
                     i-=2
             i+=1
@@ -317,25 +313,22 @@ class Calculator:
             match items[i]:
                 case "*":
                     tmp=calc.multiply(float(items[i-1]),float(items[i+1]))
-                    eq=eq.replace(items[i-1]+items[i]+items[i+1],str(tmp))
-
-                    items[i]=str(tmp)
+                   
+                    items[i]=str(tmp) # replace three arr items (operand , *  , operand) with its result
                     del items[i-1]
                     del items[i]
                     i-=2
                 case "/":
                     tmp=calc.divide(float(items[i-1]),float(items[i+1]))
-                    eq=eq.replace(items[i-1]+items[i]+items[i+1],str(tmp))
-
-                    items[i]=str(tmp)
+                    
+                    items[i]=str(tmp) # replace three arr items (operand , / , operand) with its result
                     del items[i-1]
                     del items[i]
                     i-=2
                 case "M":
                     tmp=calc.modulo(float(items[i-1]),float(items[i+1]))
-                    eq=eq.replace(items[i-1]+items[i]+items[i+1],str(tmp))
-
-                    items[i]=str(tmp)
+                    
+                    items[i]=str(tmp) # replace three arr items (operand, %  , operand) with its result
                     del items[i-1]
                     del items[i]
                     i-=2
@@ -348,17 +341,15 @@ class Calculator:
             match items[i]:
                 case "+":
                     tmp=calc.add(float(items[i-1]),float(items[i+1]))
-                    eq=eq.replace(items[i-1]+items[i]+items[i+1],str(tmp))
-
-                    items[i]=str(tmp)
+                    
+                    items[i]=str(tmp) # replace three arr items (operand, +  ,operand ) with its result
                     del items[i-1]
                     del items[i]
                     i-=2
                 case "-":
                     tmp=calc.subtract(float(items[i-1]),float(items[i+1]))
-                    eq=eq.replace(items[i-1]+items[i]+items[i+1],str(tmp))
-
-                    items[i]=str(tmp)
+                    
+                    items[i]=str(tmp) # replace three arr items (operand, - , operand) with its result
                     del items[i-1]
                     del items[i]
                     i-=2
