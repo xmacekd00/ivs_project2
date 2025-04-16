@@ -4,7 +4,7 @@ all: calculator.py
 	@python3 calculator.py 
 pack:
 	#prikaz pro udelani zipu
-clean:
+clean: __pycache__
 	rm -r "__pycache__"
 test:
 	@python3 tdd.py
@@ -13,7 +13,7 @@ doc:
 run:
 	@python3	calculator.py
 profile:
-	@python3 stddev.py #stddev.py nahradit cestou k souboru pro vypocet smerodatne odchylky s testovacim vstupem
+	@python3 stddev.py < stddev_sample_data.txt
 
 
 
