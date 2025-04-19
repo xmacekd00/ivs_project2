@@ -30,6 +30,8 @@ class Calculator:
         
         # Equation state tracking
         self.equation = ""  # Initialize the equation as an empty string
+        self.display_equation = ""  # Initialize the display equation as an empty string
+        self.last_operation = None  # Track the last operation
         
         # Label to display the equation
         self.equation_display = tk.Label(
@@ -80,7 +82,7 @@ class Calculator:
         # Scientific function buttons
         sci_buttons = [
             ("x²", 0, 0),  # Square function
-            ("√2", 0, 1),  # Square root function
+            ("√", 0, 1),  # Square root function
             ("!", 0, 2),  # Factorial function
             ("MOD", 0, 3)  # Modulus function
         ]
@@ -98,8 +100,8 @@ class Calculator:
         
         # Function buttons like clear and backspace
         func_buttons = [
-            ("xⁿ", 1, 0),  # Exponentiation
-            ("ⁿ√x", 1, 1),  # Nth root
+            ("xⁿ", 1, 0),  # Exponentiation (shows as xⁿ but becomes ^ in display)
+            ("ⁿ√", 1, 1),  # Nth root
             ("AC", 1, 2),  # Clear all
             ("DEL", 1, 3)  # Delete last character
         ]
@@ -149,7 +151,6 @@ class Calculator:
                 column=col  # Column position
             )
         
-        
         # Operator buttons: -, +, *, and /
         operators = [
             ("+", 2, 3),  # Addition
@@ -159,7 +160,7 @@ class Calculator:
         ]
         for button in operators:
             text, row, col = button
-            command = lambda t=text: self.add_to_equation(t)  # "=" triggers equals
+            command = lambda t=text: self.add_to_equation(t)  # Add operator to equation
             self.create_button(
                 button_frame, 
                 text=text,  # Button text
@@ -213,7 +214,7 @@ class Calculator:
     def key_press(self, event):
         """Handles keyboard input."""
         key = event.char
-        if key in "0123456789.+-*/()":  # Allow numeric and operator keys
+        if key in "0123456789.+-*/()^":  # Allow numeric and operator keys
             self.add_to_equation(key)
         elif event.keysym == "BackSpace":  # Handle backspace
             self.backspace()
@@ -224,42 +225,70 @@ class Calculator:
 
     def add_to_equation(self, value):
         """Appends a character to the equation and updates the display."""
-        self.equation += value
-        self.equation_display.config(text=self.equation)  # Update equation display
+        # Handle special operations for display
+        if value == "x²":
+            self.equation += "S"
+            self.display_equation += "²"
+        elif value == "xⁿ":
+            self.equation += "N"
+            self.display_equation += "^"
+        elif value == "√":
+            self.equation += "s"
+            self.display_equation += "√"
+        elif value == "ⁿ√":
+            self.equation += "n"
+            self.display_equation += "√"
+        else:
+            self.equation += value
+            self.display_equation += value
+        
+        self.equation_display.config(text=self.display_equation)  # Update equation display
+        self.last_operation = value
 
     def clear(self):
         """Clears the equation and result displays."""
         self.equation = ""
-        self.equation_display.config(text=self.equation)  # Clear equation display
+        self.display_equation = ""
+        self.equation_display.config(text=self.display_equation)  # Clear equation display
         self.result_display.config(text="0")  # Reset result display
 
     def backspace(self):
         """Removes the last character or a special token from the equation."""
-        special_tokens = ["ⁿ√x", "xⁿ", "x²", "√2", "MOD"]  # Define special tokens
-        for token in special_tokens:
-            if self.equation.endswith(token):  # Check if the equation ends with a special token
-                self.equation = self.equation[:-len(token)]  # Remove the entire token
+        # First handle the display equation
+        special_display_tokens = ["²", "^", "√"]
+        for token in special_display_tokens:
+            if self.display_equation.endswith(token):
+                self.display_equation = self.display_equation[:-len(token)]
                 break
         else:
-            self.equation = self.equation[:-1]  # Remove the last character if no special token matches
-        self.equation_display.config(text=self.equation)  # Update equation display
+            self.display_equation = self.display_equation[:-1]
+        
+        # Then handle the actual equation
+        special_tokens = ["S", "N", "s", "n"]  # Define special tokens
+        for token in special_tokens:
+            if self.equation.endswith(token):
+                self.equation = self.equation[:-len(token)]
+                break
+        else:
+            self.equation = self.equation[:-1]
+            
+        self.equation_display.config(text=self.display_equation)  # Update equation display
 
-    #
     def evaluate(self):
         eq = self.equation
         eq=eq.replace(',','.')    #correct format of decimal point
         eq=eq.replace("MOD","M") #   M - MOD
-        eq=eq.replace("ⁿ√x","n") #   n - ⁿ√x
+        eq=eq.replace("ⁿ√","n") #   n - ⁿ√
         eq=eq.replace("xⁿ","N")  #   N - xⁿ
         eq=eq.replace("x²", "S") #   S - x²
-        eq=eq.replace("√2", "s") #   s - √2
+        eq=eq.replace("√", "s") #   s - √
 
         items = []  #array of numbers and operators
         i=0
         while i<len(eq):
             item=""  
             if eq[i].isdigit():    #item is a number
-                while eq[i]. isdigit() or eq[i] == ".":   #load all the digits 
+                while eq[i].isdigit() or eq[i] == ".":   #load all the digits 
                     item+=eq[i] 
                     i+=1
                     if i>=len(eq): break   #end of eq check
@@ -269,40 +298,34 @@ class Calculator:
                 items.append(eq[i])
                 i+=1
 
-
         i=0
         #calculate special operations (fact, roots and powers)
         while i<len(items):
             match items[i]:
                 case "n":
                     tmp=calc.nth_root(float(items[i+1]),float(items[i-1]))
-                   
                     items[i]=str(tmp) # replace three arr items (operand (N), Nth root of x , operand(x)) with its result
                     del items[i-1]
                     del items[i]
                     i-=2
                 case "N": 
                     tmp=calc.power(float(items[i-1]),float(items[i+1]))
-                    
                     items[i]=str(tmp) # replace three arr items (operand (N), Nth power of x , operand(x)) with its result
                     del items[i-1]
                     del items[i]
                     i-=2
                 case "S":
                     tmp=calc.power(float(items[i-1]),2)
-                    
                     items[i]=str(tmp) # replace two arr items (x squared , operand(x)) with its result
                     del items[i-1]
                     i-=2
                 case "s":
                     tmp=calc.nth_root(float(items[i+1]),2)
-                   
                     items[i]=str(tmp) # replace two arr items (squareroot of x , operand(x)) with its result
                     del items[i+1]
                     i-=1
                 case "!":
                     tmp=calc.factorial(items[i-1])
-                    
                     items[i]=str(tmp) # replace two arr items (operand(x), !) with its result
                     del items[i-1]
                     i-=2
@@ -313,43 +336,36 @@ class Calculator:
             match items[i]:
                 case "*":
                     tmp=calc.multiply(float(items[i-1]),float(items[i+1]))
-                   
                     items[i]=str(tmp) # replace three arr items (operand , *  , operand) with its result
                     del items[i-1]
                     del items[i]
                     i-=2
                 case "/":
                     tmp=calc.divide(float(items[i-1]),float(items[i+1]))
-                    
                     items[i]=str(tmp) # replace three arr items (operand , / , operand) with its result
                     del items[i-1]
                     del items[i]
                     i-=2
                 case "M":
                     tmp=calc.modulo(float(items[i-1]),float(items[i+1]))
-                    
                     items[i]=str(tmp) # replace three arr items (operand, %  , operand) with its result
                     del items[i-1]
                     del items[i]
                     i-=2
             i+=1
 
-
         i=0
-        
         #calculate add and sub
         while i<len(items):
             match items[i]:
                 case "+":
                     tmp=calc.add(float(items[i-1]),float(items[i+1]))
-                    
                     items[i]=str(tmp) # replace three arr items (operand, +  ,operand ) with its result
                     del items[i-1]
                     del items[i]
                     i-=2
                 case "-":
                     tmp=calc.subtract(float(items[i-1]),float(items[i+1]))
-                    
                     items[i]=str(tmp) # replace three arr items (operand, - , operand) with its result
                     del items[i-1]
                     del items[i]
@@ -358,11 +374,20 @@ class Calculator:
         return items[0]
 
     def equals(self):
-
         """HERE INSERT OUR CUSTOM MATH LIBRARY TO CALCULATE THE RESULT."""
         if self.equation:
-            result=self.evaluate()
-            self.result_display.config(text=f"{self.evaluate()}")  # Display equation as result
+            try:
+                result = self.evaluate()
+                self.result_display.config(text=f"{result}")  # Display the result
+                # Keep the display equation for reference
+                self.equation_display.config(text=f"{self.display_equation}=")
+                # Reset the actual equation but keep display equation for reference
+                self.equation = str(result)
+                self.display_equation = str(result)
+            except Exception as e:
+                self.result_display.config(text="Error")  # Display error if calculation fails
+                self.equation = ""
+                self.display_equation = ""
         else:
             self.result_display.config(text="0")  # Display 0 if equation is empty
 
