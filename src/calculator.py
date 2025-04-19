@@ -238,6 +238,9 @@ class Calculator:
         elif value == "ⁿ√":
             self.equation += "n"
             self.display_equation += "√"
+        elif value == "MOD":
+            self.equation += "M"
+            self.display_equation += "%"
         else:
             self.equation += value
             self.display_equation += value
@@ -275,10 +278,10 @@ class Calculator:
         self.equation_display.config(text=self.display_equation)  # Update equation display
 
     def evaluate(self):
+        """Evaluates the equation in string"""
         eq = self.equation
         eq=eq.replace(',','.')    #correct format of decimal point
-        eq=eq.replace("MOD","M") #   M - MOD
-
+    
         items = []  #array of numbers and operators
         i=0
         while i<len(eq):
@@ -299,10 +302,12 @@ class Calculator:
             if(items[i]=='-' and i==0):
                 items[i]=str(calc.multiply(float(items[i+1]),-1))
                 del items[i+1]
-            if(i+1<len(items) and (not items[i].isdigit()) and items[i+1] == '-' ):
-                i+=1
-                items[i]=str(calc.multiply(float(items[i+1]),-1))
-                del items[i+1]
+            if(i+1<len(items) and items[i+1] == '-' ):
+                if(items[i]=="S" or items[i]=="s" or items[i]=="N" or items[i]=="n" or items[i]=="M" or items[i]=="!" or items[i]=="+" or items[i]=="-"
+                   or items[i]=="*" or items[i]=="/"):
+                    i+=1
+                    items[i]=str(calc.multiply(float(items[i+1]),-1))
+                    del items[i+1]
             i+=1
 
 
