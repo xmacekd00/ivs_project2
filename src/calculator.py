@@ -234,7 +234,7 @@ class Calculator:
             self.display_equation += "^"
         elif value == "√":
             self.equation += "s"
-            self.display_equation += "√"
+            self.display_equation += "²√"
         elif value == "ⁿ√":
             self.equation += "n"
             self.display_equation += "√"
@@ -278,10 +278,6 @@ class Calculator:
         eq = self.equation
         eq=eq.replace(',','.')    #correct format of decimal point
         eq=eq.replace("MOD","M") #   M - MOD
-        eq=eq.replace("ⁿ√","n") #   n - ⁿ√
-        eq=eq.replace("xⁿ","N")  #   N - xⁿ
-        eq=eq.replace("x²", "S") #   S - x²
-        eq=eq.replace("√", "s") #   s - √
 
         items = []  #array of numbers and operators
         i=0
@@ -291,12 +287,25 @@ class Calculator:
                 while eq[i].isdigit() or eq[i] == ".":   #load all the digits 
                     item+=eq[i] 
                     i+=1
-                    if i>=len(eq): break   #end of eq check
+                    if i>=len(eq): break   #end of equation check
                 items.append(item)#add number to items
                 
             else:   #item is an operator
                 items.append(eq[i])
                 i+=1
+
+        i=0
+        while i<len(items):
+            if(items[i]=='-' and i==0):
+                items[i]=str(calc.multiply(float(items[i+1]),-1))
+                del items[i+1]
+            if(i+1<len(items) and (not items[i].isdigit()) and items[i+1] == '-' ):
+                i+=1
+                items[i]=str(calc.multiply(float(items[i+1]),-1))
+                del items[i+1]
+            i+=1
+
+
 
         i=0
         #calculate special operations (fact, roots and powers)
@@ -320,12 +329,12 @@ class Calculator:
                     del items[i-1]
                     i-=2
                 case "s":
-                    tmp=calc.nth_root(float(items[i+1]),2)
-                    items[i]=str(tmp) # replace two arr items (squareroot of x , operand(x)) with its result
-                    del items[i+1]
-                    i-=1
+                    tmp=calc.nth_root(float(items[i+1],2))
+                    items[i]=str(tmp)
+                    del items[i-1]
+                    i-=2
                 case "!":
-                    tmp=calc.factorial(items[i-1])
+                    tmp=calc.factorial(int(items[i-1]))
                     items[i]=str(tmp) # replace two arr items (operand(x), !) with its result
                     del items[i-1]
                     i-=2
@@ -377,7 +386,7 @@ class Calculator:
         """HERE INSERT OUR CUSTOM MATH LIBRARY TO CALCULATE THE RESULT."""
         if self.equation:
             try:
-                result = self.evaluate()
+                result = calc.truncate(self.evaluate(),5)
                 self.result_display.config(text=f"{result}")  # Display the result
                 # Keep the display equation for reference
                 self.equation_display.config(text=f"{self.display_equation}=")
