@@ -33,3 +33,16 @@ def modulo(a, b):
 	if b == 0:
 		raise ZeroDivisionError("Modulo by zero is undefined!")
 	return a % b
+def truncate(a, b):
+	number=str(a)
+	rounded_number=""
+	decimal_place=False
+	decimal_place_counter=0
+
+	for i in range(0,len(number)):
+		rounded_number = rounded_number + number[i]
+		if decimal_place==True: decimal_place_counter+=1	#increase decimale_palce_counter with every digit in decimal place
+		if decimal_place_counter== b: break
+		if number[i] == ".": decimal_place= True
+
+	return float(rounded_number)
