@@ -25,8 +25,10 @@ def power(a, b):
 	return a**b
 
 def nth_root(a, n):
-	if a < 0:
+	if( a < 0 and n%2==0):
 		raise ValueError("Negative input not allowed for root function!")
+	if a < 0:
+		return -((-a) ** (1 / n)) # odd root of negative number
 	return a ** (1 / n)
 
 def modulo(a, b):
