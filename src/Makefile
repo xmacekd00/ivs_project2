@@ -4,8 +4,9 @@ all: calculator.py
 	@python3 calculator.py 
 pack:
 	#prikaz pro udelani zipu
-clean: __pycache__
-	rm -r "__pycache__"
+clean:
+	rm -rf "__pycache__"
+	rm -rf "../docs"
 test:
 	@python3 tdd.py
 doc: Doxyfile
