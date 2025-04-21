@@ -104,6 +104,9 @@ def truncate(a, b):
 	rounded_number=""
 	decimal_place=False
 	decimal_place_counter=0
+	
+	if b<0:
+		raise ValueError("Negative number of decimal places is not possible")
 
 	for i in range(0,len(number)):
 		rounded_number = rounded_number + number[i]
@@ -136,7 +139,7 @@ def evaluate(equation):
 					item+=eq[i] 
 					i+=1
 					if i>=len(eq): break   #end of equation check
-				items.append(item)#add number to items
+				items.append(float(item))#add number to items
 				
 			else:   #item is an operator
 				items.append(eq[i])
@@ -145,13 +148,13 @@ def evaluate(equation):
 		i=0
 		while i<len(items):
 			if(items[i]=='-' and i==0):
-				items[i]=str(multiply(float(items[i+1]),-1))
+				items[i]=multiply(items[i+1],-1)
 				del items[i+1]
 			if(i+1<len(items) and items[i+1] == '-' ):
 				if(items[i]=="S" or items[i]=="s" or items[i]=="N" or items[i]=="n" or items[i]=="M" or items[i]=="!" or items[i]=="+" or items[i]=="-"
 				   or items[i]=="*" or items[i]=="/"):
 					i+=1
-					items[i]=str(multiply(float(items[i+1]),-1))
+					items[i]=multiply(items[i+1],-1)
 					del items[i+1]
 			i+=1
 
@@ -162,30 +165,30 @@ def evaluate(equation):
 		while i<len(items):
 			match items[i]:
 				case "n":
-					tmp=nth_root(float(items[i+1]),float(items[i-1]))
-					items[i]=str(tmp) # replace three arr items (operand (N), Nth root of x , operand(x)) with its result
+					tmp=nth_root(items[i+1],items[i-1])
+					items[i]=tmp # replace three arr items (operand (N), Nth root of x , operand(x)) with its result
 					del items[i-1]
 					del items[i]
 					i-=2
 				case "N": 
-					tmp=power(float(items[i-1]),float(items[i+1]))
-					items[i]=str(tmp) # replace three arr items (operand (N), Nth power of x , operand(x)) with its result
+					tmp=power(items[i-1],items[i+1])
+					items[i]=tmp # replace three arr items (operand (N), Nth power of x , operand(x)) with its result
 					del items[i-1]
 					del items[i]
 					i-=2
 				case "S":
-					tmp=power(float(items[i-1]),2)
-					items[i]=str(tmp) # replace two arr items (x squared , operand(x)) with its result
+					tmp=power(items[i-1],2)
+					items[i]=tmp # replace two arr items (x squared , operand(x)) with its result
 					del items[i-1]
 					i-=2
 				case "s":
-					tmp=nth_root(float(items[i+1],2))
-					items[i]=str(tmp)
+					tmp=nth_root(items[i+1],2)
+					items[i]=tmp
 					del items[i-1]
 					i-=2
 				case "!":
 					tmp=factorial(int(items[i-1]))
-					items[i]=str(tmp) # replace two arr items (operand(x), !) with its result
+					items[i]=tmp # replace two arr items (operand(x), !) with its result
 					del items[i-1]
 					i-=2
 			i+=1
@@ -194,20 +197,20 @@ def evaluate(equation):
 		while i<len(items):
 			match items[i]:
 				case "*":
-					tmp=multiply(float(items[i-1]),float(items[i+1]))
-					items[i]=str(tmp) # replace three arr items (operand , *  , operand) with its result
+					tmp=multiply(items[i-1],items[i+1])
+					items[i]=tmp # replace three arr items (operand , *  , operand) with its result
 					del items[i-1]
 					del items[i]
 					i-=2
 				case "/":
-					tmp=divide(float(items[i-1]),float(items[i+1]))
-					items[i]=str(tmp) # replace three arr items (operand , / , operand) with its result
+					tmp=divide(items[i-1],items[i+1])
+					items[i]=tmp # replace three arr items (operand , / , operand) with its result
 					del items[i-1]
 					del items[i]
 					i-=2
 				case "M":
-					tmp=modulo(float(items[i-1]),float(items[i+1]))
-					items[i]=str(tmp) # replace three arr items (operand, %  , operand) with its result
+					tmp=modulo(items[i-1],items[i+1])
+					items[i]=tmp # replace three arr items (operand, %  , operand) with its result
 					del items[i-1]
 					del items[i]
 					i-=2
@@ -218,14 +221,14 @@ def evaluate(equation):
 		while i<len(items):
 			match items[i]:
 				case "+":
-					tmp=add(float(items[i-1]),float(items[i+1]))
-					items[i]=str(tmp) # replace three arr items (operand, +  ,operand ) with its result
+					tmp=add(items[i-1],items[i+1])
+					items[i]=tmp # replace three arr items (operand, +  ,operand ) with its result
 					del items[i-1]
 					del items[i]
 					i-=2
 				case "-":
-					tmp=subtract(float(items[i-1]),float(items[i+1]))
-					items[i]=str(tmp) # replace three arr items (operand, - , operand) with its result
+					tmp=subtract(items[i-1],items[i+1])
+					items[i]=tmp # replace three arr items (operand, - , operand) with its result
 					del items[i-1]
 					del items[i]
 					i-=2
