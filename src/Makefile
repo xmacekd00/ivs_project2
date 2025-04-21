@@ -8,8 +8,8 @@ clean: __pycache__
 	rm -r "__pycache__"
 test:
 	@python3 tdd.py
-doc:
-	#prikaz pro generovani dokumentace
+doc: Doxyfile
+	doxygen Doxyfile
 run:
 	@python3	calculator.py
 profile:
