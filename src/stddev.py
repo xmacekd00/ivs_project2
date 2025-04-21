@@ -1,11 +1,11 @@
 ## ================================================
-# File: stddev.py
-# Authors: xmacekd00
-# Description: Stddev.py calculates sample standart deviation.
+# @file stddev.py
+# @author xmacekd00
+# @brief: Stddev.py calculates sample standart deviation.
 #              Program reads data from file given to stdin.
-# Creation date: 2025-04-16
-# Version: 1
-# ================================================
+# @date 16.04.2025
+#@details Program reads data from stdin 
+# =================================================
 import calc
 import sys
 
