@@ -1,56 +1,129 @@
+##
+# @file calc.py
+# @author xperuta00, xmacekd00
+# @brief Mathematical operations and equation solver
+# @date 10.04.2025
+
 def add(a, b):
+    """
+    @brief Add two numbers
+    @param a First number 
+    @param b Second number
+    @return Sum of a and b
+    """
     return a + b
 
 # the following functions have not been implemented 
 def subtract(a, b):
-	return a - b
+    """
+    @brief Subtrat two numbers
+    @param a Minuend
+    @param b Subtrahend
+    @return Difference between a and b
+    """
+    return a - b
 
 def multiply(a, b):
-	return a * b
+    """
+    @brief Multiply two numbers
+    @param a First factor
+    @param b Second factor
+    @return Product of a and b
+    """
+    return a * b
 
 def divide(a, b):
-	if b == 0:
-		raise ZeroDivisionError("Division by zero is undefined!")
-	return a / b
+    """
+    @brief Divides two numbers
+    @param a Dividend 
+    @param b Divisor
+    @return Quotient of a and b
+    @throws ZeroDivisionError If b=0
+    """
+    if b == 0:
+        raise ZeroDivisionError("Division by zero is undefined!")
+    return a / b
 
 def factorial(n):
-	if n < 0:
-		raise ValueError("Factorial is not defined for negative numbers!")
-	result = 1
-	for i in range(1, n + 1):
-		result *= i
-	return result
+    """
+    @brief Calculates factorial of a number
+    @param n  Positive integer
+    @return Factorial of n
+    @throws ValueError If n is negative
+    """
+    if n < 0:
+        raise ValueError("Factorial is not defined for negative numbers!")
+    result = 1
+    for i in range(1, n + 1):
+        result *= i
+    return result
 
 def power(a, b):
-	return a**b
+    """
+    @brief Calculates nth power of a number
+    @param a Base
+    @param b Exponent
+    @return a to the power of b
+    """
+    return a**b
 
 def nth_root(a, n):
-	if( a < 0 and n%2==0):
-		raise ValueError("Negative input not allowed for root function!")
-	if a < 0:
-		return -((-a) ** (1 / n)) # odd root of negative number
-	return a ** (1 / n)
+    """
+    @brief Calculates the nth root of a number
+    @param a Base, Positive number
+    @param n Root number
+    @return Nth root of a
+    @throws ValueError If a is a negative number and n is even number 
+    """
+    if( a < 0 and n%2==0):
+        raise ValueError("Negative input not allowed for root function!")
+    if a < 0:
+        return -((-a) ** (1 / n)) # odd root of negative number
+    return a ** (1 / n)
 
 def modulo(a, b):
-	if b == 0:
-		raise ZeroDivisionError("Modulo by zero is undefined!")
-	return a % b
+    """
+    @brief Calculates remainder of divion of two numbers
+    @param a Dividend
+    @param b Divisor
+    @return Remainder of a and b
+    @throws ZeroDivisionError If b=0
+    """
+    if b == 0:
+        raise ZeroDivisionError("Modulo by zero is undefined!")
+    return a % b
+
 def truncate(a, b):
-	number=str(a)
-	rounded_number=""
-	decimal_place=False
-	decimal_place_counter=0
+    """
+    @brief Truncates number to specified decimal places
+    @param a Number
+    @param b NUmber of decimal places
+    @return Number a with b decimal places or less
+    """
+    number=str(a)
+    rounded_number=""
+    decimal_place=False
+    decimal_place_counter=0
 
-	for i in range(0,len(number)):
-		rounded_number = rounded_number + number[i]
-		if decimal_place==True: decimal_place_counter+=1	#increase decimale_palce_counter with every digit in decimal place
-		if decimal_place_counter== b: break
-		if number[i] == ".": decimal_place= True
+    for i in range(0,len(number)):
+        rounded_number = rounded_number + number[i]
+        if decimal_place==True: decimal_place_counter+=1	#increase decimale_palce_counter with every digit in decimal place
+        if decimal_place_counter== b: break
+        if number[i] == ".": decimal_place= True
 
-	return float(rounded_number)
+    return float(rounded_number)
 
 def evaluate(equation):
-        """Evaluates the equation in string"""
+        """
+        @brief Evaluates an expression given in string format, operator N is Nth power (2N3=8)
+                                                                operator n is nth root (3n8=2)
+                                                                operator S is squared (5S=25)
+                                                                operator s is squareroot (s4=2)
+        @param equation Expression to be calculated
+        @return Value of the expression
+        @throws ValueError For invalid input format
+        @throws ZeroDivisionError For division by zero
+        """
         eq = equation
         eq=eq.replace(',','.')    #correct format of decimal point
     
@@ -159,3 +232,4 @@ def evaluate(equation):
             i+=1
         return items[0]
 
+## end of calc.py
