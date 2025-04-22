@@ -397,11 +397,11 @@ class Calculator:
         text_widget.insert("end", "  For example:\n", "section")
         text_widget.insert("end",
             "    9 + 5 * 2 = 19\n"
-            "    4 x² = 16\n"
             "    5 ! = 120\n"
-            "    5 MOD 5 = 0\n"
-            "    3 ⁿ√ 27 = 3\n"
             "    √ 9 = 3\n"
+            "    4 x² = 4² = 16\n"
+            "    3 ⁿ√ 27 = ³√27 = 3\n"
+            "    5 MOD 5 = 5%5 = 0\n"
         )
     
         text_widget.config(state="disabled")
