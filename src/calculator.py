@@ -335,7 +335,7 @@ class Calculator:
         """
         help_window = tk.Toplevel(self.master)  # Create a new top-level window
         help_window.title("Help")  # Set the title of the help window
-        help_window.geometry("450x680")  # Set the size of the help window
+        help_window.geometry("700x730")  # Set the size of the help window
         help_window.configure(bg="#0c1520")  # Set the background color
     
         frame = tk.Frame(help_window)
@@ -371,11 +371,12 @@ class Calculator:
     
         text_widget.insert("end", "  Advanced Functions:\n", "section")
         text_widget.insert("end",
-            "    x² : Square\n"
-            "    √ : Square root\n"
-            "    xⁿ : Power\n"
-            "    ⁿ√ : Nth root\n"
-            "    ! : Factorial\n\n"
+            "    x² : Square (5 and x² = 5²)\n"
+            "    √ : Square root (√n = choose any number behind sqrt to be n)\n"
+            "    ⁿ√ : Nth root (ⁿ√x = choose n before pressing the function, continue with x number)\n"
+            "    xⁿ : Power (5 and xⁿ = 5 ^ : choose the next number to be ⁿ)\n"
+            "    ! : Factorial (choose number before pressing ""!"")\n"
+            "    see examples for more clarification\n\n"
         )
     
         text_widget.insert("end", "  Controls:\n", "section")
@@ -399,6 +400,8 @@ class Calculator:
             "    4 x² = 16\n"
             "    5 ! = 120\n"
             "    5 MOD 5 = 0\n"
+            "    3 ⁿ√ 27 = 3\n"
+            "    √ 9 = 3\n"
         )
     
         text_widget.config(state="disabled")
