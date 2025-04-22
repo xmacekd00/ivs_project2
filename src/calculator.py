@@ -335,21 +335,74 @@ class Calculator:
         """
         help_window = tk.Toplevel(self.master)  # Create a new top-level window
         help_window.title("Help")  # Set the title of the help window
-        help_window.geometry("300x200")  # Set the size of the help window
+        help_window.geometry("450x680")  # Set the size of the help window
         help_window.configure(bg="#0c1520")  # Set the background color
+    
+        frame = tk.Frame(help_window)
+        frame.pack(padx=0, pady=0, fill="both", expand=True)
 
-        # Add a label with help text
-        help_label = tk.Label(
-            help_window,
-            text="This is a simple calculator.\n\n"
-                "Use the buttons or keyboard to input numbers and operations.\n\n"
-                "Click '=' to calculate the result.",
-            font=self.equation_font,  # Use the equation font
-            bg="#0c1520",  # Background color
-            fg="white",  # Text color
-            iustify="center"  # Center-align the text
+        # Text widget for help content
+        text_widget = tk.Text(
+            frame,
+            bg="#0c1520",
+            fg="white",
+            font=self.equation_font,
+            wrap="word",
         )
-        help_label.pack(expand=True, padx=10, pady=10)  # Add padding and center the label
+        text_widget.pack(padx=0, pady=0, fill="both", expand=True)
+
+    
+        # Define styled tags
+        text_widget.tag_configure("section", foreground="#0059cc", font=(self.equation_font.actual("family"), self.equation_font.actual("size"), "bold"))
+        text_widget.tag_configure("title", foreground="#ffffff", font=(self.equation_font.actual("family"), self.equation_font.actual("size") + 2, "bold"), justify="center")
+
+    
+        # Insert the manual text with tagged sections
+        text_widget.insert("end", "  Simple Calculator Help Manual\n\n", "title")
+        
+        text_widget.insert("end", "  Basic Operations:\n", "section")
+        text_widget.insert("end",
+            "    + : Addition\n"
+            "    - : Subtraction\n"
+            "    * : Multiplication\n"
+            "    / : Division\n"
+            "    MOD : Modulo (Remainder)\n\n"
+        )
+    
+        text_widget.insert("end", "  Advanced Functions:\n", "section")
+        text_widget.insert("end",
+            "    x² : Square\n"
+            "    √ : Square root\n"
+            "    xⁿ : Power\n"
+            "    ⁿ√ : Nth root\n"
+            "    ! : Factorial\n\n"
+        )
+    
+        text_widget.insert("end", "  Controls:\n", "section")
+        text_widget.insert("end",
+            "    AC : All Clear\n"
+            "    DEL : Delete last digit\n"
+            "    = : Evaluate expression\n\n"
+        )
+    
+        text_widget.insert("end", "  How to Use:\n", "section")
+        text_widget.insert("end",
+            "    - Click buttons to build an expression.\n"
+            "    - Use '=' to evaluate.\n"
+            "    - Use 'AC' to reset everything.\n"
+            "    - Use 'DEL' to delete the last character.\n\n"
+        )
+    
+        text_widget.insert("end", "  For example:\n", "section")
+        text_widget.insert("end",
+            "    9 + 5 * 2 = 19\n"
+            "    4 x² = 16\n"
+            "    5 ! = 120\n"
+            "    5 MOD 5 = 0\n"
+        )
+    
+        text_widget.config(state="disabled")
+        text_widget.pack(padx=5, pady=5, fill="both", expand=True)
 
 ##
 # @brief Entry point of the calculator application.
