@@ -1,7 +1,7 @@
 Built for:
 -----------
 
-Ubuntu 20.04 64bit, Windows 64bit
+Ubuntu 24.04 64bit, Windows 10 64bit
 
 Authors:
 -----------
