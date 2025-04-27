@@ -39,16 +39,4 @@ Ubuntu: 1. Make sure you have python3 installed
         3.1 If tkinter is missing, install it 
             "sudo apt install python3-tk"
 
-Windows:1. Make sure you have Python 3 installed
-            "python --version"
-        1.2 If not, install it
-            "Download the 64-bit installer from https://www.python.org, 
-            run it, and tick Add Python to  PATH.
-            Tkinter is included automatically."
-        2. Go into src directory
-            e.g. "cd C:\path\to\ivs_project2\src"
-        3. Install GNU Make (one-time)
-            "choco install make"  ← requires Chocolatey
-        3.1 Run the prepared Makefile
-            "make"
-        3.2 If Tkinter not found, reinstall Python with the tcl/tk feature enabled.
+Windows: Use install file
