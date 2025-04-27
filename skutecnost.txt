@@ -1,1 +1,4 @@
-tento soubor bude obsahovat rozdil mezi planem projektu a skutecnosti
+We were working with the wrong deadline for about a month, so afterwards the deadlines had to be completely rescheduled.
+Sometimes the task distribution was not ideal. Some task could not be completed early on because they depended on the 
+completion of something else.
+The time estimates for some tasks were also too long due to a lack of familiarity with the topic 
