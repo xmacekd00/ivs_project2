@@ -105,12 +105,48 @@ class TestCalc(unittest.TestCase):
         """
         @brief Expression evaluation test
         """
-        self.assertEqual(evaluate("5!"),120)
-        self.assertEqual(evaluate("-3*-2"),6)
-        self.assertEqual(evaluate("3*3n-8"),-6)
-        self.assertEqual(evaluate("2S"),4)
-        self.assertEqual(evaluate("s4"),2)
-        self.assertEqual(evaluate("3N-3"),1/27)
+        self.assertEqual(evaluate("5!"), 120)
+        self.assertEqual(evaluate("-3*-2"), 6)
+        self.assertEqual(evaluate("3*3n-8"), -6)
+        self.assertEqual(evaluate("2S"), 4)
+        self.assertEqual(evaluate("s4"), 2)
+        self.assertEqual(evaluate("3N-3"), 1/27)
+
+        self.assertEqual(evaluate("2N3"), 8)
+        self.assertEqual(evaluate("3n8"), 2)
+        self.assertEqual(evaluate("5S"), 25)
+        self.assertEqual(evaluate("s4"), 2)
+        self.assertEqual(evaluate("5!"), 120)
+        self.assertEqual(evaluate("5*2"), 10)
+        self.assertEqual(evaluate("10/2"), 5)
+        self.assertEqual(evaluate("10M3"), 1)
+        self.assertEqual(evaluate("5+2"), 7)
+        self.assertEqual(evaluate("5-2"), 3)
+
+        self.assertEqual(evaluate("2N3+5*2"), 18)
+        self.assertEqual(evaluate("5!/10"), 12)
+        self.assertEqual(evaluate("s9+1"), 4)
+        self.assertEqual(evaluate("10M3-1"), 0)
+
+        self.assertEqual(evaluate("2.5*4"), 10)
+
+        self.assertEqual(evaluate("-5+2"), -3)
+        self.assertEqual(evaluate("5*-2"), -10)
+
+        self.assertEqual(evaluate("0!"), 1)
+
+        with self.assertRaises(ZeroDivisionError):
+            evaluate("5/0")
+
+        with self.assertRaises(ZeroDivisionError):
+            evaluate("5M0")
+
+        with self.assertRaises(ValueError):
+            evaluate("-5!")
+
+        with self.assertRaises(ValueError):
+            evaluate("2n-8")
+
         
 if __name__ == '__main__':
     unittest.main()

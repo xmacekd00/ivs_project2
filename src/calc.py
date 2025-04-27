@@ -134,30 +134,20 @@ def evaluate(equation):
 		i=0
 		while i<len(eq):
 			item=""  
-			if eq[i].isdigit():    #item is a number
-				while eq[i].isdigit() or eq[i] == ".":   #load all the digits 
+			if(eq[i].isdigit() or (eq[i]=="." and i+1 < len(eq) and eq[i+1].isdigit())):    #item is a number
+				while i<len(eq) and (eq[i].isdigit() or eq[i] == ".") :   #load all the digits 
 					item+=eq[i] 
 					i+=1
-					if i>=len(eq): break   #end of equation check
 				items.append(float(item))#add number to items
-				
+			elif(eq[i]=="-" and (i==0 or eq[i-1] in '*/+-%SsNn!')):
+				i += 1
+				while i < len(eq) and (eq[i].isdigit() or eq[i] == '.'):
+					item += eq[i]
+					i += 1
+					items.append(float('-' + item))
 			else:   #item is an operator
 				items.append(eq[i])
 				i+=1
-
-		i=0
-		while i<len(items):
-			if(items[i]=='-' and i==0):
-				items[i]=multiply(items[i+1],-1)
-				del items[i+1]
-			if(i+1<len(items) and items[i+1] == '-' ):
-				if(items[i]=="S" or items[i]=="s" or items[i]=="N" or items[i]=="n" or items[i]=="M" or items[i]=="!" or items[i]=="+" or items[i]=="-"
-				   or items[i]=="*" or items[i]=="/"):
-					i+=1
-					items[i]=multiply(items[i+1],-1)
-					del items[i+1]
-			i+=1
-
 
 
 		i=0
@@ -165,32 +155,27 @@ def evaluate(equation):
 		while i<len(items):
 			match items[i]:
 				case "n":
-					tmp=nth_root(items[i+1],items[i-1])
-					items[i]=tmp # replace three arr items (operand (N), Nth root of x , operand(x)) with its result
-					del items[i-1]
+					items[i-1]=nth_root(items[i+1],items[i-1]) # replace three arr items (operand (N), Nth root of x , operand(x)) with its result
+					del items[i+1]
 					del items[i]
-					i-=2
+					i-=1
 				case "N": 
-					tmp=power(items[i-1],items[i+1])
-					items[i]=tmp # replace three arr items (operand (N), Nth power of x , operand(x)) with its result
-					del items[i-1]
+					items[i-1]=power(items[i-1],items[i+1]) # replace three arr items (operand (N), Nth power of x , operand(x)) with its result
+					del items[i+1]
 					del items[i]
 					i-=2
 				case "S":
-					tmp=power(items[i-1],2)
-					items[i]=tmp # replace two arr items (x squared , operand(x)) with its result
-					del items[i-1]
-					i-=2
+					items[i-1]=power(items[i-1],2) # replace two arr items (x squared , operand(x)) with its result
+					del items[i]
+					i-=1
 				case "s":
-					tmp=nth_root(items[i+1],2)
-					items[i]=tmp
-					del items[i-1]
-					i-=2
+					items[i]=nth_root(items[i+1],2)
+					del items[i+1]
+					i-=1
 				case "!":
-					tmp=factorial(int(items[i-1]))
-					items[i]=tmp # replace two arr items (operand(x), !) with its result
-					del items[i-1]
-					i-=2
+					items[i-1]=factorial(int(items[i-1])) # replace two arr items (operand(x), !) with its result
+					del items[i]
+					i-=1
 			i+=1
 		i=0
 		#calculate mult. division and modulo
@@ -233,6 +218,9 @@ def evaluate(equation):
 					del items[i]
 					i-=2
 			i+=1
+		if len(items)!=1:
+			return ValueError("Invalid expression")
+		
 		return items[0]
 
 ## end of calc.py
