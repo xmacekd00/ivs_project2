@@ -1,6 +1,8 @@
 IVS Profiling - tým Husovi stoupenci
 ----------------------------------------------
-Ve složce outputs jsou podrobné výstupní hodnoty pro profiling na deseti, tísíci a milionu číslech. Všechna čísla jsou desetinná čísla. Jednotlivé soubory použity k profilingu jsou ve složce inputs. Pro profilování byl použit nástroj cProfile.
+Ve složce outputs jsou podrobné výstupní hodnoty pro profiling na deseti, tísíci a milionu číslech. 
+Všechna čísla jsou desetinná čísla. Jednotlivé soubory použity k profilingu jsou ve složce inputs. 
+Pro profilování byl použit nástroj cProfile.
 ------------------------------------------------------------------------
 Profiling na 10 číslech:
 - Nejvíce času zabírá inicializace skriptu a importy, samotný výpočet je zanedbatelný
@@ -17,5 +19,10 @@ Profiling na 1 000 000 číslech
 - Celkem 4 000 199 volání
 -----------------------------------------------------------------------
 Závěr
-U malých počtu vstupů je doba výpočtu zanedbatelná a program tráví nejvíce času na importech. U větších vstupů tráví program nejvíce času na opakoveném volání funkcí pro součet a mocninu. Počet volání calc. add a calc.pow je totiž trojnásobný k počtu čísel na vstupu. 
+U malých počtu vstupů je doba výpočtu zanedbatelná a program tráví nejvíce času na importech. 
+U větších vstupů tráví program nejvíce času na opakoveném volání funkcí pro součet a mocninu. 
+Počet volání calc. add a calc.pow je totiž trojnásobný k počtu čísel na vstupu. 
+
+Při optimalizaci by bylo tedy vhodené se zaměřit na počet volání funkcí pro součet a mocninu
+, protože součet volání těchto funkcí je trojnásobný vzhledem k počtu čísel na vstupu.
 
