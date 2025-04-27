@@ -12,7 +12,7 @@ import sys
 file_data= sys.stdin.read() #load whole file
 
 numbers=[]
-for number in file_data.split(" "): #split the whole file by character " " and load array of numbers
+for number in file_data.split(): #split the whole file by most common white space
     numbers.append(float(number))
 
 sum_of_squared_numbers = 0

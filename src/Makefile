@@ -1,7 +1,9 @@
+.PHONY: all  pack clean test doc run profile
+
 .DEFAULT_GOAL := all
 
-all: calculator.py
-	@python3 calculator.py 
+all:
+	@python3 calculator.py
 pack:
 	#prikaz pro udelani zipu
 clean:
@@ -15,6 +17,7 @@ run:
 	@python3	calculator.py
 profile:
 	@python3 stddev.py < stddev_sample_data.txt
+
 
 
 
