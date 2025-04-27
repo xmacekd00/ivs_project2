@@ -1,0 +1,30 @@
+IVS Profiling - team Husovi stoupenci
+----------------------------------------------
+In the outputs folder, you will find deatiled output values for profiling with ten, one thousand 
+and one million numbers. All the numbers are decimal numbers. The individual files used for
+profiling are located in the inputs folder. The cProfile tool was  used for profiling.
+------------------------------------------------------------------------
+Profiling with 10 numbers:
+- Most of the time is spent on scrip init and import. The actul computation is negligible.
+- Total function calls - 239
+------------------------------------------------------------------------
+Profiling with 1 000 numbers
+- Most of the time is spent on sum calculation (calc.add), which has  2 000 calls
+- A significant amount of time is also spent on exponentiation (calc.pow), which has 1 001 calls
+- Total funcion calls: 4200 
+------------------------------------------------------------------------
+Profiling with 1 000 000 nubmers
+- Most of the time si spent on sum calculation again (calc.add) - 2 000 000 calls
+- A significant amount of time is again spent on exponentiation - 1 000 002 calls
+- Total funcion calls: 4 000 199
+-----------------------------------------------------------------------
+Conclusion
+For small input sizes, the computation is negligible, and the program
+spende most of the time on imports.
+For large inputs the program spends the majority of its time repeatedly calling
+the sun (calc.add) and exponentiation (calc.pow) functions. The number of calls 
+to calc.add and calc.pow is three time the number of input nubmers.
+
+For optimalizations it would be beneficial to focus on reducing the number of calls
+to the sum and exponentiation functions, as their combined call count triples relative
+to the input size. 
