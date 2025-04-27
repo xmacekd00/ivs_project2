@@ -103,15 +103,16 @@ class TestCalc(unittest.TestCase):
 
     def test_evaluate(self):
         """
-        @brief Expression evaluation test
+        @brief Evaluation test
         """
+        #random test values
         self.assertEqual(evaluate("5!"), 120)
         self.assertEqual(evaluate("-3*-2"), 6)
         self.assertEqual(evaluate("3*3n-8"), -6)
         self.assertEqual(evaluate("2S"), 4)
         self.assertEqual(evaluate("s4"), 2)
         self.assertEqual(evaluate("3N-3"), 1/27)
-
+        #basic test for all functions
         self.assertEqual(evaluate("2N3"), 8)
         self.assertEqual(evaluate("3n8"), 2)
         self.assertEqual(evaluate("5S"), 25)
@@ -122,19 +123,19 @@ class TestCalc(unittest.TestCase):
         self.assertEqual(evaluate("10M3"), 1)
         self.assertEqual(evaluate("5+2"), 7)
         self.assertEqual(evaluate("5-2"), 3)
-
+        #more complex inputs
         self.assertEqual(evaluate("2N3+5*2"), 18)
         self.assertEqual(evaluate("5!/10"), 12)
         self.assertEqual(evaluate("s9+1"), 4)
         self.assertEqual(evaluate("10M3-1"), 0)
-
+        #decimal numbers
         self.assertEqual(evaluate("2.5*4"), 10)
-
+        #operations with negative numbers
         self.assertEqual(evaluate("-5+2"), -3)
         self.assertEqual(evaluate("5*-2"), -10)
-
+        #fact edge case
         self.assertEqual(evaluate("0!"), 1)
-
+        #Exceptions and errors
         with self.assertRaises(ZeroDivisionError):
             evaluate("5/0")
 

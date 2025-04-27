@@ -134,17 +134,17 @@ def evaluate(equation):
 		i=0
 		while i<len(eq):
 			item=""  
-			if(eq[i].isdigit() or (eq[i]=="." and i+1 < len(eq) and eq[i+1].isdigit())):    #item is a number
+			if(eq[i].isdigit() or (eq[i]=="." and i+1 < len(eq) and eq[i+1].isdigit())):    #item is a positive number or a decimal point
 				while i<len(eq) and (eq[i].isdigit() or eq[i] == ".") :   #load all the digits 
 					item+=eq[i] 
 					i+=1
 				items.append(float(item))#add number to items
-			elif(eq[i]=="-" and (i==0 or eq[i-1] in '*/+-%SsNn!')):
+			elif(eq[i]=="-" and (i==0 or eq[i-1] in '*/+-%SsNn!')): #item is a start of a negative number
 				i += 1
 				while i < len(eq) and (eq[i].isdigit() or eq[i] == '.'):
 					item += eq[i]
 					i += 1
-					items.append(float('-' + item))
+				items.append(float('-' + item))
 			else:   #item is an operator
 				items.append(eq[i])
 				i+=1
