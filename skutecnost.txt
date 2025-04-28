@@ -2,3 +2,6 @@ We were working with the wrong deadline for about a month, so afterwards the dea
 Sometimes the task distribution was not ideal. Some task could not be completed early on because they depended on the 
 completion of something else.
 The time estimates for some tasks were also too long due to a lack of familiarity with the topic 
+Despite these complications, the team demonstrated exceptional cooperation and adaptability.
+Through regular synchronization and workload redistribution, we maintained progress momentum and successfully compensated for initial planning discrepancies.
+This collaborative approach ultimately enabled us to deliver a fully functional solution within the revised timeframe.
