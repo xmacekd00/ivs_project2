@@ -27,3 +27,5 @@
 *.exe
 *.out
 *.app
+#python compiled binary
+*.pyc
