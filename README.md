@@ -21,7 +21,7 @@ This Desktop Calculator is a simple yet powerful application designed for everyd
 ## Development
 The calculator was implemented in Python, with the GUI built using the Tkinter library. 
 
-## GitHub
+## How to obtain our calculator
 You can obtain our Desktop Calculator using this command:
 
 `git clone  https://github.com/xmacekd00/ivs_project2.git`
