@@ -4,11 +4,12 @@
 
 all:
 	@python3 calculator.py
-pack:
-	#prikaz pro udelani zipu
+pack: clean
+	cd .. && zip -r xmacekd00_xperuta00_xcapkad00_xkrystm00.zip . -x ".git/*" -x "installer/*"
+
 clean:
 	rm -rf "__pycache__"
-	rm -rf "../docs"
+	rm -rf "../doc"
 test:
 	@python3 tdd.py
 doc: Doxyfile
