@@ -6,50 +6,42 @@
 import unittest
 from calc import add, subtract, multiply, divide, factorial, power, nth_root, modulo, truncate, evaluate
 
+##
+#@brief Class contains unittests for math lib
 class TestCalc(unittest.TestCase):
-    """
-    @brief Class contains unittests for math lib
-    """
+    ##
+    #@brief Adition test
     def test_add(self):
-        """
-        @brief Adition test
-        """
         self.assertEqual(add(2, 3), 5)
         self.assertEqual(add(-1, 1), 0)
         self.assertEqual(add(0, 0), 0)
         self.assertEqual(add(-1, -1), -2)
 
+    ##
+    #@brief Subtraction test
     def test_subtract(self):
-        """
-        @brief Subtraction test
-        """
         self.assertEqual(subtract(5, 3), 2)
         self.assertEqual(subtract(3, 5), -2)
         self.assertEqual(subtract(0, 5), -5)
         self.assertEqual(subtract(-1, -1), 0)
-
+    ##
+    #@brief Multiplication test
     def test_multiply(self):
-        """
-        @brief Multiplication test
-        """
         self.assertEqual(multiply(4, 3), 12)
         self.assertEqual(multiply(0, 100), 0)
         self.assertEqual(multiply(-2, 3), -6)
 
+    ##
+    #@brief Division test
     def test_divide(self):
-        """
-        @brief Division test
-        """
         self.assertEqual(divide(10, 2), 5)
         self.assertAlmostEqual(divide(7, 2), 3.5)
         with self.assertRaises(ZeroDivisionError): 
             divide(5, 0)
 
-    # faktorial
+    ##
+    #@brief Factorial test
     def test_factorial(self):
-        """
-        @brief Factorial test
-        """
         self.assertEqual(factorial(0), 1)
         self.assertEqual(factorial(1), 1)
         self.assertEqual(factorial(3), 6)
@@ -57,21 +49,17 @@ class TestCalc(unittest.TestCase):
         with self.assertRaises(ValueError):
             factorial(-1)
 
-    # umocnovanie s prirodzenymi exponentmi
+    ##
+    #@brief Exponentiation by natural exponent
     def test_power(self):
-        """
-        @brief Exponentiation by natural exponent
-        """
         self.assertEqual(power(2, 3), 8)
         self.assertEqual(power(5, 0), 1)
         self.assertEqual(power(7, 2), 49)
         self.assertEqual(power(3, 1), 3)
 
-    # n-ta odmocnina
+    ##
+    #@brief Find nth root
     def test_nth_root(self):
-        """
-        @brief Find nth root
-        """
         self.assertEqual(nth_root(27, 3), 3)
         self.assertEqual(nth_root(16, 4), 2)
         # aproximacia 2ky
@@ -80,31 +68,26 @@ class TestCalc(unittest.TestCase):
             # zaporna odmocnina
             nth_root(-8, 2)
 
-    # modulo - volitelna funkcia
+    ##
+    #@brief Modulo test
     def test_modulo(self):
-        """
-        @brief Modulo test
-        """
         self.assertEqual(modulo(10, 3), 1)
         self.assertEqual(modulo(10, 5), 0)
         self.assertEqual(modulo(10, 7), 3)
         with self.assertRaises(ZeroDivisionError):
             modulo(10, 0)
-
+    ##
+    #@biref Test of truncate
     def test_truncate(self):
-        """
-        @biref Test of truncate
-        """
         self.assertEqual(truncate(0.555555,5),0.55555)
         self.assertEqual(truncate(1,5),1)
         self.assertEqual(truncate(1.11,0),1)
         with self.assertRaises(ValueError):
             truncate(1,-2)
 
+    ##
+    #@brief Evaluation test
     def test_evaluate(self):
-        """
-        @brief Evaluation test
-        """
         #random test values
         self.assertEqual(evaluate("5!"), 120)
         self.assertEqual(evaluate("-3*-2"), 6)
