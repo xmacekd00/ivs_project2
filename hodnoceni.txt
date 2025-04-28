@@ -1,5 +1,5 @@
 xmacekd00 100 (profiling, two functions in calc.py and tests for theese functions in tdd.py, Makefile, repozitory setup, project plan, doxyfile)
 xkrystm00 100 (GUI design, calculator installer , GUI implementation, stddev installer, uinstallers)
 xcapkad00 100 (GUI design, user guide, GUI implementation, readme, instalation guide)
-xperuta00 100 (tests for math lib, math library, hint, )
+xperuta00 100 (tests for math lib, math library, help guide, license, linux install guide)
 together(hodnoceni, skutecnost, mockup)
