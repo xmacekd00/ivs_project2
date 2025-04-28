@@ -22,10 +22,14 @@ pack: clean doc
 	cd .. && mkdir xmacekd00_xperuta00_xkrystm00_xcapkad00
 	cd .. && cp -r doc repo install xmacekd00_xperuta00_xkrystm00_xcapkad00/
 	cd .. && zip -r xmacekd00_xperuta00_xkrystm00_xcapkad00.zip xmacekd00_xperuta00_xkrystm00_xcapkad00
+	cd .. && rm -rf xmacekd00_xperuta00_xkrystm00_xcapkad00
+	cd .. && rm -rf doc
+
 
 clean:
 	rm -rf "__pycache__"
 	rm -rf "../doc"
+	rm -rf ../*.zip
 test:
 	@python3 tdd.py
 doc: Doxyfile
