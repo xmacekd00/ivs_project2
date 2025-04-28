@@ -28,15 +28,15 @@ You can obtain our Desktop Calculator using this command:
 
 ## Instalation
 
-Ubuntu: 1. Make sure you have python3 installed
-            "python3 --version"
-        1.2.If not, install it
-            "sudo apt install python3"
-        2. Go into src directory 
-            e.g."cd .../ivs_project2/src"
-        3. Use Makefile made ready for you
-            "make"
-        3.1 If tkinter is missing, install it 
-            "sudo apt install python3-tk"
+Ubuntu: 1. Make sure you have python3 installed <br>
+            "python3 --version"<br>
+        1.2.If not, install it <br>
+            "sudo apt install python3"<br>
+        2. Go into src directory <br>
+            e.g."cd .../ivs_project2/src"<br>
+        3. Use Makefile made ready for you<br>
+            "make"<br>
+        3.1 If tkinter is missing, install it <br>
+            "sudo apt install python3-tk"<br>
 
 Windows: Use install file
