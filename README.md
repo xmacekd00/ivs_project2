@@ -13,7 +13,9 @@ Authors:
 
 -----------
 License:
-TBA
+
+This project is licensed under the [MIT License](LICENSE).
+
 
 # About our project
 This Desktop Calculator is a simple yet powerful application designed for everyday calculations on your PC. With a clean and intuitive interface, it supports both basic arithmetic and more advanced mathematical functions, making it suitable for users of all levels. Whether you're working, studying, or managing personal tasks, this calculator offers a reliable and user-friendly solution to help you get the job done efficiently.
