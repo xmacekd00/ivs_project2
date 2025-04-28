@@ -4,8 +4,24 @@
 
 all:
 	@python3 calculator.py
-pack: clean
-	cd .. && zip -r xmacekd00_xperuta00_xcapkad00_xkrystm00.zip . -x ".git/*" -x "installer/*"
+pack: clean doc
+	cd .. && mkdir -p repo
+	cd .. && cp -r .git repo/
+	cd .. && cp -r src repo/
+	cd .. && cp -r mockup repo/
+	cd .. && cp -r plan repo/
+	cd .. && cp -r profiling repo/
+	cd .. && cp debugging.png repo/
+	cd .. && cp dokumentace.pdf repo/
+	cd .. && cp screenshot.png repo/ 
+	cd .. && cp skutecnost.txt repo/
+	cd .. && cp hodnoceni.txt repo/
+	cd .. && cp README.md repo/
+	cd .. && cp .gitignore repo/
+	cd .. && cp .editorconfig repo/
+	cd .. && mkdir xmacekd00_xperuta00_xkrystm00_xcapkad00
+	cd .. && cp -r doc repo install xmacekd00_xperuta00_xkrystm00_xcapkad00/
+	cd .. && zip -r xmacekd00_xperuta00_xkrystm00_xcapkad00.zip xmacekd00_xperuta00_xkrystm00_xcapkad00
 
 clean:
 	rm -rf "__pycache__"
