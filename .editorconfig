@@ -1,9 +1,11 @@
-; indicate this is the root of the project
 root = true
 
 [*]
-indent_style = space
+charset = utf-8
 end_of_line = lf
+insert_final_newline = false
+trim_trailing_whitespace = true
 
-[*.cpp]
+[*.py]
+indent_style = space
 indent_size = 4
