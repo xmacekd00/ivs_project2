@@ -41,4 +41,11 @@ You can obtain our Desktop Calculator using this command:
 &emsp;"sudo apt install python3-tk"<br>
 
 ### Windows: 
-Use install file
+1. Run the installer: Double-click calculator setup.exe to begin the installation
+process.
+2. Choose installation location: Select the destination folder where you want the
+application to be installed (e.g., C:\Program Files\Calculator).
+3. Select Start Menu folder (optional): Choose whether to create a Start Menu
+shortcut for easy access.
+4. Complete installation: Click Install and wait for the process to finish. Once
+done, the calculator will be ready to use.
