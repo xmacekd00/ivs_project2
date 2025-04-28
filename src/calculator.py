@@ -1,23 +1,22 @@
-##================================================
+##
 # @file calculator.py
 # @authors xcapkad00, xkrystm00
 # @brief Calculator created using the tkinter library with 
 #              the possibility of extending it with custom mathematical operations.
 # @date 13.04.2025
 # @version 1.2
-# ================================================
+# 
 import calc
 import tkinter as tk
 from tkinter import font
 
 ##
-# @class Calculator
-# @brief Main class for the GUI
-#
+#@class Calculator
+#@brief Main class for the GUI
 class Calculator:
     ##
-    # @breif Constructor, initialization of window, fonts and all elements
-    # @param master Main tkinter window
+    #@breif Constructor, initialization of window, fonts and all elements
+    #@param master Main tkinter window
     def __init__(self, master):
         # Set up the main window
         self.master = master
@@ -181,21 +180,20 @@ class Calculator:
         self.master.bind("<Key>", self.key_press)  # Bind keyboard events to the calculator
         self.master.focus_set()  # Capture keyboard events
 
+    ##
+    #@brief Creates a styled button and places it into the grid layout.
+    #@param parent Parent widget
+    #@param text Button text
+    #@param font Button font
+    #@param bg Background hex color
+    #@param fg Text hex color
+    #@param command Function to call, when the button is pressed
+    #@param row Row in grid
+    #@param column Column in grid
+    #@param rowspan Rowspan, default=1
+    #@param columnspan Columnspan, default=1
+    #@return Button widget
     def create_button(self, parent, text, font, bg, fg, command, row, column, rowspan=1, columnspan=1):
-        """
-        @brief Creates a styled button and places it into the grid layout.
-        @param parent Parent widget
-        @param text Button text
-        @param font Button font
-        @param bg Background hex color
-        @param fg Text hex color
-        @param command Function to call, when the button is pressed
-        @param row Row in grid
-        @param column Column in grid
-        @param rowspan Rowspan, default=1
-        @param columnspan Columnspan, default=1
-        @return Button widget
-        """
         frame = tk.Frame(parent, bg=parent["bg"])
         frame.grid(row=row, column=column, rowspan=rowspan, columnspan=columnspan, padx=4, pady=4, sticky="nsew")
         frame.grid_propagate(False)  # Prevent resizing of the frame
@@ -218,13 +216,11 @@ class Calculator:
         )
         btn.grid(row=0, column=0, sticky="nsew", padx=1, pady=1)
         return btn
-
+    ##
+    #@brief Darkens a given HEX color by reducing its RGB values.
+    #@param hex_color Color hex
+    #@return Darkened color hex
     def darken_color(self, hex_color):
-        """
-        @brief Darkens a given HEX color by reducing its RGB values.
-        @param hex_color Color hex
-        @return Darkened color hex
-        """
         r = int(hex_color[1:3], 16)
         g = int(hex_color[3:5], 16)
         b = int(hex_color[5:7], 16)
@@ -233,11 +229,11 @@ class Calculator:
         b = max(0, b - 30)  # Reduce blue component
         return f"#{r:02x}{g:02x}{b:02x}"
 
+
+    ##
+    #@brief Handles keyboard input.
+    #@param event Tkinter key event
     def key_press(self, event):
-        """
-        @brief Handles keyboard input.
-        @param event Tkinter key event
-        """
         key = event.char
         if key in "0123456789.+-*/()^":  # Allow numeric and operator keys
             self.add_to_equation(key)
@@ -248,11 +244,11 @@ class Calculator:
         elif event.keysym == "Escape":  # Handle Escape key
             self.clear()
 
+
+    ##
+    #@brief Appends a character to the equation and updates the display.
+    #@param value Symbol to add to equation string
     def add_to_equation(self, value):
-        """
-        @brief Appends a character to the equation and updates the display.
-        @param value Symbol to add to equation string
-        """
         # Handle special operations for display
         if value == "x²":
             self.equation += "S"
@@ -276,19 +272,17 @@ class Calculator:
         self.equation_display.config(text=self.display_equation)  # Update equation display
         self.last_operation = value
 
+    ##
+    #@brief Clears the equation and result displays.
     def clear(self):
-        """
-        @brief Clears the equation and result displays.
-        """
         self.equation = ""
         self.display_equation = ""
         self.equation_display.config(text=self.display_equation)  # Clear equation display
         self.result_display.config(text="0")  # Reset result display
 
+    ##
+    #@brief Removes the last character or a special token from the equation.
     def backspace(self):
-        """
-        @brief Removes the last character or a special token from the equation.
-        """
         # First handle the display equation
         special_display_tokens = ["²", "^", "√"]
         for token in special_display_tokens:
@@ -308,11 +302,9 @@ class Calculator:
             self.equation = self.equation[:-1]
             
         self.equation_display.config(text=self.display_equation)  # Update equation display
-
+    ##
+    #@brief Displays the result of an expression
     def equals(self):
-        """
-        @brief Displays the result of an expression
-        """
         if self.equation:
             try:
                 result = calc.truncate(calc.evaluate(self.equation),5)
@@ -329,10 +321,9 @@ class Calculator:
         else:
             self.result_display.config(text="0")  # Display 0 if equation is empty
 
+    ##
+    #@brief Displays a help window with usage instructions
     def show_help(self):
-        """
-        @brief Displays a help window with usage instructions
-        """
         help_window = tk.Toplevel(self.master)  # Create a new top-level window
         help_window.title("Help")  # Set the title of the help window
         help_window.geometry("700x730")  # Set the size of the help window
