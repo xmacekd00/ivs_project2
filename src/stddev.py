@@ -10,18 +10,31 @@ import math_lib
 import sys
 import os
 
-def get_input():
-# NO STDIN
-    if sys.stdin.isatty():  # No piped input
-        app_path = os.path.dirname(os.path.realpath(__file__))
-        bundled_file = os.path.join(app_path, 'input.txt')
-        with open(bundled_file, 'r') as f:
-            return f.read()
-    # READ FROM STDIN
-    else:
-        return sys.stdin.read()
+def get_resource_path(relative_path):
+    """Get absolute path to resource, works for dev and for PyInstaller"""
+    if getattr(sys, 'frozen', False):  # Running as compiled exe
+        base_path = sys._MEIPASS  # PyInstaller temp folder
+    else:  # Running as normal Python script
+        base_path = os.path.dirname(os.path.abspath(__file__))
+    return os.path.join(base_path, relative_path)
 
-file_data= get_input()
+def load_input_data():
+    """Load data either from stdin or bundled file"""
+    try:
+        if not sys.stdin.isatty():  # Check if input is being piped
+            return sys.stdin.read()
+        else:  # Fall back to bundled file
+            input_path = get_resource_path('input.txt')
+            with open(input_path, 'r') as f:
+                return f.read()
+    except FileNotFoundError:
+        print("Error: Could not find input.txt", file=sys.stderr)
+        sys.exit(1)
+    except Exception as e:
+        print(f"Error reading input: {str(e)}", file=sys.stderr)
+        sys.exit(1)
+
+file_data= load_input_data()
 
 numbers=[]
 for number in file_data.split(): #split the whole file by most common white space
