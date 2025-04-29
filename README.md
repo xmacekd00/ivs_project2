@@ -1,7 +1,7 @@
 Platform Support:
 ----------------
 
-Primary platform: Windows 10 64-bit
+Primary platform: Windows 10 64-bit<br>
 Also compatible with: Linux (various distributions)
 
 Authors:
