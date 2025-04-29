@@ -1,7 +1,8 @@
-Built for:
------------
+Platform Support:
+----------------
 
-Windows 10 64bit
+Primary platform: Windows 10 64-bit
+Also compatible with: Linux (various distributions)
 
 Authors:
 -----------
