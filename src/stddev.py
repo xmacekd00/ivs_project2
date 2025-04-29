@@ -8,8 +8,20 @@
 
 import math_lib
 import sys
+import os
 
-file_data= sys.stdin.read() #load whole file
+def get_input():
+# NO STDIN
+    if sys.stdin.isatty():  # No piped input
+        app_path = os.path.dirname(os.path.realpath(__file__))
+        bundled_file = os.path.join(app_path, 'input.txt')
+        with open(bundled_file, 'r') as f:
+            return f.read()
+    # READ FROM STDIN
+    else:
+        return sys.stdin.read()
+
+file_data= get_input()
 
 numbers=[]
 for number in file_data.split(): #split the whole file by most common white space
