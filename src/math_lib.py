@@ -1,5 +1,5 @@
 ##
-# @file calc.py
+# @file math_lib.py
 # @author xperuta00, xmacekd00
 # @brief Mathematical operations and equation solver
 # @date 10.04.2025
@@ -223,4 +223,4 @@ def evaluate(equation):
 		
 		return items[0]
 
-## end of calc.py
+## end of math_lib.py
