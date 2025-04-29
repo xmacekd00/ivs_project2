@@ -4,7 +4,7 @@
 # @brief Unit tests for math lib calc.py
 # @date 1.04.2025
 import unittest
-from calc import add, subtract, multiply, divide, factorial, power, nth_root, modulo, truncate, evaluate
+from math_lib import add, subtract, multiply, divide, factorial, power, nth_root, modulo, truncate, evaluate
 
 ##
 #@brief Class contains unittests for math lib

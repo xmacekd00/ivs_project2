@@ -6,7 +6,7 @@
 # @date 16.04.2025
 #@details Program reads data from stdin 
 
-import calc
+import math_lib
 import sys
 
 file_data= sys.stdin.read() #load whole file
@@ -18,14 +18,14 @@ for number in file_data.split(): #split the whole file by most common white spac
 sum_of_squared_numbers = 0
 sum=0
 for number in numbers:  #calculate sum of numbers and sum of squared numbers
-    number_squared=calc.power(number,2)
-    sum_of_squared_numbers= calc.add(sum_of_squared_numbers,number_squared)
-    sum=calc.add(sum,number)
-average=calc.divide(sum,len(numbers))
+    number_squared=math_lib.power(number,2)
+    sum_of_squared_numbers= math_lib.add(sum_of_squared_numbers,number_squared)
+    sum=math_lib.add(sum,number)
+average=math_lib.divide(sum,len(numbers))
 #ted to v zavorce
-in_brackets=calc.subtract(sum_of_squared_numbers,calc.multiply(len(numbers),calc.power(average,2))) #result of the expression in brackets 
-under_squareroot=calc.divide(in_brackets,len(numbers)-1)  # result of expression under squareroot
-stddev=calc.nth_root(under_squareroot,2) # result 
+in_brackets=math_lib.subtract(sum_of_squared_numbers,math_lib.multiply(len(numbers),math_lib.power(average,2))) #result of the expression in brackets 
+under_squareroot=math_lib.divide(in_brackets,len(numbers)-1)  # result of expression under squareroot
+stddev=math_lib.nth_root(under_squareroot,2) # result 
 
 print(stddev)
 

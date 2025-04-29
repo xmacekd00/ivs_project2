@@ -6,7 +6,7 @@
 # @date 13.04.2025
 # @version 1.2
 # 
-import calc
+import math_lib
 import tkinter as tk
 from tkinter import font
 
@@ -307,7 +307,7 @@ class Calculator:
     def equals(self):
         if self.equation:
             try:
-                result = calc.truncate(calc.evaluate(self.equation),5)
+                result = math_lib.truncate(math_lib.evaluate(self.equation),5)
                 self.result_display.config(text=f"{result}")  # Display the result
                 # Keep the display equation for reference
                 self.equation_display.config(text=f"{self.display_equation}=")
