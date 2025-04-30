@@ -11,7 +11,9 @@ import sys
 import os
 
 def get_resource_path(relative_path):
-    """Get absolute path to resource, works for dev and for PyInstaller"""
+    """
+    @brief Get absolute path to resource, works for dev and for PyInstaller
+    """
     if getattr(sys, 'frozen', False):  # Running as compiled exe
         base_path = sys._MEIPASS  # PyInstaller temp folder
     else:  # Running as normal Python script
@@ -19,7 +21,9 @@ def get_resource_path(relative_path):
     return os.path.join(base_path, relative_path)
 
 def load_input_data():
-    """Load data either from stdin or bundled file"""
+    """
+    @brief Load data either from stdin or bundled file
+    """
     try:
         if not sys.stdin.isatty():  # Check if input is being piped
             return sys.stdin.read()
