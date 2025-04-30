@@ -18,6 +18,7 @@ pack: clean doc
 	cd .. && cp dokumentace.pdf repo/
 	cd .. && cp screenshot.png repo/ 
 	cd .. && cp skutecnost.txt repo/
+	cd .. && cp LICENSE.md repo/
 	cd .. && cp hodnoceni.txt repo/
 	cd .. && cp README.md repo/
 	cd .. && cp .gitignore repo/
