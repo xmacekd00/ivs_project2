@@ -6,6 +6,9 @@ all:
 	@python3 calculator.py
 pack: clean doc
 	cd .. && mkdir -p repo
+	cd .. && mkdir -p install
+	cd .. && cp -r calc_installer  install/
+	cd .. && cp -r stddev_installer  install/
 	cd .. && cp -r .git repo/
 	cd .. && cp -r src repo/
 	cd .. && cp -r mockup repo/
@@ -24,6 +27,8 @@ pack: clean doc
 	cd .. && zip -r xmacekd00_xperuta00_xkrystm00_xcapkad00.zip xmacekd00_xperuta00_xkrystm00_xcapkad00
 	cd .. && rm -rf xmacekd00_xperuta00_xkrystm00_xcapkad00
 	cd .. && rm -rf doc
+	cd .. && rm -rf install
+	cd .. && rm -rf repo
 
 
 clean:
